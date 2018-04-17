@@ -66,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
 //        ButterKnife.(this);
-        super.onDestroy();
+        super.onDestroy(); 
     }
 
     protected void resolveDaggerDependency() {
