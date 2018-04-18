@@ -8,11 +8,24 @@ import android.os.Parcelable;
  */
 public class UserModel implements Parcelable {
 
-    public String userPassword;
-    public String userEmail;
-    public String uid;
-    public String name;
+    private boolean auth;
+    private String token;
 
+    public boolean isAuth() {
+        return auth;
+    }
+
+    public void setAuth(boolean auth) {
+        this.auth = auth;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
 
@@ -32,10 +45,8 @@ public class UserModel implements Parcelable {
     }
 
     private UserModel(Parcel parcel) {
-        userPassword = parcel.readString();
-        userEmail = parcel.readString();
-        uid = parcel.readString();
-        name = parcel.readString();
+        auth = parcel.readByte() != 0; //myBoolean == true if byte != 0
+        token = parcel.readString();
 
 
     }
@@ -43,10 +54,8 @@ public class UserModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flag) {
-        parcel.writeString(userPassword);
-        parcel.writeString(userEmail);
-        parcel.writeString(uid);
-        parcel.writeString(name);
+        parcel.writeByte((byte) (auth ? 1 : 0));  //if myBoolean == true, byte == 1
+        parcel.writeString(token);
 
     }
 

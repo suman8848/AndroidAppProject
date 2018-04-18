@@ -10,7 +10,6 @@ import com.example.sumankhatiwada.vehiclebazzar.R;
 import javax.inject.Inject;
 
 
-
 public class SharedPreferenceManager {
 
     private static final String EMPTY_STRING = "";
@@ -20,10 +19,11 @@ public class SharedPreferenceManager {
 
     /**
      * Create a shared instance of the class
+     *
      * @return instance of the class
      */
     public static SharedPreferenceManager getSharedInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new SharedPreferenceManager();
         return instance;
     }
@@ -33,7 +33,6 @@ public class SharedPreferenceManager {
      */
     public SharedPreferenceManager() {
         super();
-
 
 
     }
@@ -47,6 +46,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set string in preferences
+     *
      * @param key
      * @param value
      * @return editor commit
@@ -59,6 +59,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get string from preferences
+     *
      * @param key
      * @return data
      */
@@ -69,6 +70,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set int in preferences
+     *
      * @param key
      * @param value
      * @return editor commit
@@ -81,6 +83,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get int from preferences
+     *
      * @param key
      * @return data
      */
@@ -91,6 +94,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set double in preferences
+     *
      * @param key
      * @param value
      * @return editor commit
@@ -103,6 +107,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get double from preferences
+     *
      * @param key
      * @return data
      */
@@ -113,6 +118,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set boolean in preferences
+     *
      * @param key
      * @param value
      * @return editor commit
@@ -125,6 +131,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get boolean from preferences
+     *
      * @param key
      * @return data
      */
@@ -135,6 +142,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set long in preferences
+     *
      * @param key
      * @param value
      * @return data
@@ -147,6 +155,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get long from preferences
+     *
      * @param key
      * @return data
      */
@@ -157,6 +166,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to set float in preferences
+     *
      * @param key
      * @param value
      * @return data
@@ -169,6 +179,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to get float from preferences
+     *
      * @param key
      * @return data
      */
@@ -179,6 +190,7 @@ public class SharedPreferenceManager {
 
     /**
      * Method to delete data on specific key from preferences
+     *
      * @param key
      * @return data
      */
@@ -190,45 +202,30 @@ public class SharedPreferenceManager {
 
     /**
      * Removing all preferences.
-    */
-    public void clearAllPreferences(){
+     */
+    public void clearAllPreferences() {
         sharedPreferences.edit().clear().commit();
     }
 
-    public void saveUserModel(UserModel userModel)
-    {
-
-        if(userModel==null)
+    public void saveUserModel(UserModel userModel) {
+        if (userModel == null)
             return;
-        Log.e("UserModelRegister",userModel.userEmail + AppConstants.SharedPreferenceKeys.USER_ID.getKey());
-        setStringInPreferences(AppConstants.SharedPreferenceKeys.USER_ID.getKey(),userModel.uid);
-        setStringInPreferences(AppConstants.SharedPreferenceKeys.USER_PASSWORD.getKey(), userModel.userPassword);
-        setStringInPreferences(AppConstants.SharedPreferenceKeys.USER_EMAIL.getKey(), userModel.userEmail);
-        setStringInPreferences(AppConstants.SharedPreferenceKeys.NAME.getKey(),userModel.name);
-
+        Log.e("UserModelRegister", userModel.isAuth() + AppConstants.SharedPreferenceKeys.AUTH.getKey());
+        setBooleanInPreferences(AppConstants.SharedPreferenceKeys.AUTH.getKey(), userModel.isAuth());
+        setStringInPreferences(AppConstants.SharedPreferenceKeys.TOKEN.getKey(), userModel.getToken());
     }
+    public UserModel getUserModelFromPreferences() {
+        UserModel userModel = null;
+        boolean auth = getBooleanFromPreferences(AppConstants.SharedPreferenceKeys.AUTH.getKey());
+        String token = getStringFromPreferences(AppConstants.SharedPreferenceKeys.TOKEN.getKey());
 
-    public UserModel getUserModelFromPreferences()
-    {
-        UserModel userModel =null;
-        String name = getStringFromPreferences(AppConstants.SharedPreferenceKeys.USER_EMAIL.getKey());
-      String userPassword =  getStringFromPreferences(AppConstants.SharedPreferenceKeys.USER_PASSWORD.getKey());
-
-       // Log.e("USernameLogin",name);
-       // Log.e("USernameLogin",uid);
-        if(!TextUtils.isEmpty(name)||!TextUtils.isEmpty(userPassword)) {
+        if (!auth || !TextUtils.isEmpty(token)) {
             userModel = new UserModel();
-            userModel.userPassword = name;
-            userModel.name = getStringFromPreferences(AppConstants.SharedPreferenceKeys.NAME.getKey());
-            userModel.userEmail = getStringFromPreferences(AppConstants.SharedPreferenceKeys.USER_EMAIL.getKey());
-
-
-
+            userModel.setAuth(auth);
+            userModel.setToken(token);
         }
-//        Log.e("Loaded value",userModel.uid);
         return userModel;
     }
-
 
 
 }

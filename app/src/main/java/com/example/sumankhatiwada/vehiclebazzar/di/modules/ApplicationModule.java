@@ -59,6 +59,7 @@ public class ApplicationModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient client, GsonConverterFactory gsonConverterFactory, RxJavaCallAdapterFactory rxJavaCallAdapterFactory) {
         return new Retrofit.Builder()
+
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxJavaCallAdapterFactory)

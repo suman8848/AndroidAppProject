@@ -60,12 +60,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <RelativeLayout
+                        android:layout_weight="0.5"
                         android:id="@+id/usernameLinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_16"
-                        android:layout_marginRight="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_16"
                         android:background="@drawable/bg_edittextview">
 
@@ -84,7 +89,7 @@
                             tools:ignore="ContentDescription" />
 
                         <EditText
-                            android:id="@+id/editTextFullName"
+                            android:id="@+id/editTextFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/textinput_height"
                             android:layout_alignParentEnd="true"
@@ -93,7 +98,7 @@
                             android:layout_toEndOf="@+id/imageView_fullname"
                             android:layout_toRightOf="@+id/imageView_fullname"
                             android:background="@null"
-                            android:hint="@string/full_name"
+                            android:hint="@string/first_name"
                             android:inputType="text"
                             android:paddingBottom="@dimen/dp_16"
                             android:paddingEnd="@dimen/dp_16"
@@ -106,7 +111,54 @@
                             android:textSize="@dimen/sp_14" />
 
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_weight="0.5"
+                        android:id="@+id/lastnameLinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:background="@drawable/bg_edittextview">
 
+
+                        <ImageView
+                            android:id="@+id/imageView_lastname"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_action_user_grey"
+                            tools:ignore="ContentDescription" />
+
+                        <EditText
+                            android:id="@+id/editTextLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/textinput_height"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/imageView_lastname"
+                            android:layout_toRightOf="@+id/imageView_lastname"
+                            android:background="@null"
+                            android:hint="@string/last_name"
+                            android:inputType="text"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:paddingEnd="@dimen/dp_16"
+                            android:paddingLeft="0dp"
+                            android:paddingRight="@dimen/dp_16"
+                            android:paddingStart="0dp"
+                            android:paddingTop="@dimen/dp_16"
+                            android:textColor="@color/secondaryText"
+                            android:textColorHint="@color/hintTextColor"
+                            android:textSize="@dimen/sp_14" />
+
+                    </RelativeLayout>
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:id="@+id/emailadressLinearLayout"
@@ -151,6 +203,7 @@
                             android:textSize="@dimen/sp_14" />
 
                     </RelativeLayout>
+
 
 
                     <RelativeLayout

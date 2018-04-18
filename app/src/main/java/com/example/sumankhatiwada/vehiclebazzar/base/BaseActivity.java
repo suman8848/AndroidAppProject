@@ -3,10 +3,12 @@ package com.example.sumankhatiwada.vehiclebazzar.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +21,11 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.sumankhatiwada.vehiclebazzar.R;
+import com.example.sumankhatiwada.vehiclebazzar.animation.Techniques;
+import com.example.sumankhatiwada.vehiclebazzar.animation.YoYo;
 import com.example.sumankhatiwada.vehiclebazzar.application.VehicleBazzarApplication;
 import com.example.sumankhatiwada.vehiclebazzar.di.components.ApplicationComponent;
+import com.example.sumankhatiwada.vehiclebazzar.utils.NetworkUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,13 +48,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-
+//        Fabric.with(this, new Crashlytics());
 
         setContentView(getContentView());
         ButterKnife.bind(this);
         onViewReady(savedInstanceState, getIntent());
     }
+
 
     @CallSuper
     protected void onViewReady(Bundle savedInstanceState, Intent intent) {
@@ -171,6 +176,53 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected  void internetAvailable(ImageView imageView , TextView textView){
         textView.setVisibility(View.INVISIBLE);
         imageView.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void onShowSnack(Context context, String message, int color) {
+//        String message;
+
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.login_coordinator), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(color);
+        snackbar.show();
+
+    }
+
+    public void animation(int id) {
+        switch (id) {
+            case R.id.editText_UserName:
+                YoYo.with(Techniques.Shake).duration(700).playOn(findViewById(R.id.editText_UserName));
+                break;
+            case R.id.mainloginLayout:
+                YoYo.with(Techniques.Shake).duration(700).playOn(findViewById(R.id.mainloginLayout));
+                break;
+            case R.id.editText_UserPassword:
+                YoYo.with(Techniques.Shake).duration(700).playOn(findViewById(R.id.editText_UserPassword));
+                break;
+            case R.id.editTextFirstName:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.editTextFirstName));
+                break;
+            case R.id.editTextLastName:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.editTextLastName));
+                break;
+            case R.id.editTextEmailAddress:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.editTextEmailAddress));
+                break;
+            case R.id.editTextPassword:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.editTextPassword));
+                break;
+            case R.id.editTextConfirmPassword:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.editTextConfirmPassword));
+                break;
+            case R.id.linearLayoutRegister:
+                YoYo.with(Techniques.Shake).duration(800).playOn(findViewById(R.id.linearLayoutRegister));
+                break;
+        }
 
     }
 

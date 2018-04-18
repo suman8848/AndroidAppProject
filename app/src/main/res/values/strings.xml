@@ -14,4 +14,6 @@
     <string name="emailaddress">Email Address</string>
     <string name="login">Login</string>
     <string name="register_txt_link">Register</string>
+    <string name="first_name">FIrst Name</string>
+    <string name="last_name">Last Name</string>
 </resources>
