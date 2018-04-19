@@ -67,10 +67,10 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-//                    case R.id.action_home:
+                    case R.id.action_home:
 //                        showToast(DashBoardActivity.this, "Home");
-//                        setDesiredFragment(new HomeFragment());
-//                        break;
+                        setDesiredFragment(new HomeFragment());
+                        break;
 
                     case R.id.action_profile:
                         showToast(DashBoardActivity.this, "Profile");
