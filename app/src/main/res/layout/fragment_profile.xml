@@ -63,6 +63,22 @@
             android:padding="6dp"
             android:textOff=""
             android:textOn="" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_phone_save"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/ic_save_black"
+            android:checked="true"
+            android:padding="6dp"
+            android:textOff=""
+
+            android:textOn="" />
 
 
     </RelativeLayout>
@@ -96,6 +112,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:enabled="false"
+            android:background="@color/white"
             android:text="chintan@letsnurture.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#212121" />
@@ -115,6 +132,21 @@
 
         <Button
             android:id="@+id/btn_email_edit_save"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/ic_edit"
+            android:checked="true"
+            android:padding="6dp"
+            android:textOff=""
+            android:textOn="" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_email_save"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
@@ -150,7 +182,7 @@
             android:src="@drawable/ic_location_on_black" />
 
         <EditText
-            android:id="@+id/tvNumber5"
+            android:id="@+id/et_profile_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -168,7 +200,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNumber5"
+            android:layout_below="@id/et_profile_address"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
@@ -180,6 +212,21 @@
 
         <Button
             android:id="@+id/btn_location_edit_save"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/ic_edit"
+            android:checked="true"
+            android:padding="6dp"
+            android:textOff=""
+            android:textOn="" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_location_save"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"

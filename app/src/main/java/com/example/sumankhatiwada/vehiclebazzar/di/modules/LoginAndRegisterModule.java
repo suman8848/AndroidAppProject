@@ -1,7 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequest;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.LoginView;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.RegisterView;
@@ -57,8 +57,8 @@ public class LoginAndRegisterModule {
 
     @PerActivity
     @Provides
-    RegisterRequest providesRegisterRequest() {
-        return new RegisterRequest();
+    RegisterRequestAndProfileResponses providesRegisterRequest() {
+        return new RegisterRequestAndProfileResponses();
     }
 }
 

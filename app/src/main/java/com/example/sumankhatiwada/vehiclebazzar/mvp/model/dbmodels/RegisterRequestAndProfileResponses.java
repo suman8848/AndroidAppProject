@@ -9,7 +9,7 @@ import java.util.List;
  * Created by sumankhatiwada on 4/18/18.
  */
 
-public class RegisterRequest {
+public class RegisterRequestAndProfileResponses {
     @SerializedName("firstname")
     @Expose
     private String firstname;
@@ -40,6 +40,18 @@ public class RegisterRequest {
     @SerializedName("shipping_adddress")
     @Expose
     private List<Object> shippingAdddress = null;
+
+    @SerializedName("_id")
+    @Expose
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstname() {
         return firstname;

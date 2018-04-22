@@ -17,5 +17,4 @@ import dagger.Component;
 public interface LoginAndRegisterComponent {
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);
-
 }

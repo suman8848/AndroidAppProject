@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sumankhatiwada.vehiclebazzar.application.VehicleBazzarApplication;
+import com.example.sumankhatiwada.vehiclebazzar.di.components.ApplicationComponent;
+
 import butterknife.ButterKnife;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -84,9 +87,9 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-//    protected ApplicationComponent getApplicationComponent() {
-//        return ((MailNinjaApplication) getActivity().getApplication()).getmApplicationComponent();
-//    }
+    protected ApplicationComponent getApplicationComponent() {
+        return ((VehicleBazzarApplication) getActivity().getApplication()).getmApplicationComponent();
+    }
 
 
     protected void resolveDaggerDependency() {}

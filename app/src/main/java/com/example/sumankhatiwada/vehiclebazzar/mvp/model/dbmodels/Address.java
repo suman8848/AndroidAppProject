@@ -20,12 +20,13 @@ public class Address {
     private String state;
     @SerializedName("zipcode")
     @Expose
-    private String zipcode;
+    private Integer zipcode;
+
 
     public Address() {
     }
 
-    public Address(String street, String city, String state, String zipcode) {
+    public Address(String street, String city, String state, Integer zipcode) {
         this.street = street;
         this.city = city;
         this.state = state;
@@ -56,12 +57,13 @@ public class Address {
         this.state = state;
     }
 
-    public String getZipcode() {
+    public Integer getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(String zipcode) {
+    public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
+
 
 }
