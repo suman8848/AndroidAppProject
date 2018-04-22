@@ -6,18 +6,11 @@ import android.util.Log;
 import com.example.sumankhatiwada.vehiclebazzar.base.BasePresenter;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Address;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.LoginAndRegisterResponses;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequest;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.SharedPreferenceManager;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.RegisterView;
 import com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices.VehicleBazzarService;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,7 +33,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     Context mContext;
 
     @Inject
-    RegisterRequest mRegisterRequest;
+    RegisterRequestAndProfileResponses mRegisterRequest;
 
     @Inject
     SharedPreferenceManager msharedPreferenceManager;
@@ -56,7 +49,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         mRegisterRequest.setLastname(lastName);
         mRegisterRequest.setEmail(emailAddress);
         mRegisterRequest.setPassword(password);
-        Address address = new Address("fairfied", "test", "test", "1243");
+        Address address = new Address("fairfied", "test", "test", 123);
         mRegisterRequest.setAddress(address);
         Observable<LoginAndRegisterResponses> registerResponsesObservable = mRegisterApiServices.registerUser(mRegisterRequest);
         subscribe(registerResponsesObservable, new Observer<LoginAndRegisterResponses>() {

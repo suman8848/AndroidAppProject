@@ -3,6 +3,7 @@ package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.view.ProfileView;
 import com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices.VehicleBazzarService;
 
 import dagger.Module;
@@ -16,9 +17,19 @@ import retrofit2.Retrofit;
 public class DashBoardModule {
 
     DashBoardView dashBoardView;
+    ProfileView profileView;
 
     public DashBoardModule(DashBoardView dashBoardView) {
         this.dashBoardView = dashBoardView;
+    }
+    public DashBoardModule(ProfileView profileView) {
+        this.profileView = profileView;
+    }
+
+    @PerActivity
+    @Provides
+    public ProfileView provideProfileView(){
+        return profileView;
     }
 
     @PerActivity

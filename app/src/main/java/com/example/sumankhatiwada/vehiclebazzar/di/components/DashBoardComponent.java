@@ -3,7 +3,9 @@ package com.example.sumankhatiwada.vehiclebazzar.di.components;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.LoginAndRegisterModule;
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.ProfileFragmentPresenter;
 import com.example.sumankhatiwada.vehiclebazzar.ui.activities.DashBoardActivity;
+import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.ProfileFragment;
 
 import dagger.Component;
 
@@ -15,4 +17,5 @@ import dagger.Component;
 @Component(modules = DashBoardModule.class, dependencies = ApplicationComponent.class)
 public interface DashBoardComponent {
     void inject(DashBoardActivity dashBoardActivity);
+    void inject(ProfileFragment profileFragment);
 }

@@ -1,14 +1,13 @@
 package com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices;
 
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.LoginAndRegisterResponses;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequest;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterResponses;
-
-import org.json.JSONObject;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -24,6 +23,9 @@ public interface VehicleBazzarService {
     Observable<LoginAndRegisterResponses> checkUserLogin(@Field("email") String email, @Field("password") String password);
 
     @POST("/api/auth/register")
-    Observable<LoginAndRegisterResponses> registerUser(@Body RegisterRequest requestRegister);
+    Observable<LoginAndRegisterResponses> registerUser(@Body RegisterRequestAndProfileResponses requestRegister);
+
+    @GET("/api/auth/me")
+    Observable<RegisterRequestAndProfileResponses> getMyProfile(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
 }
