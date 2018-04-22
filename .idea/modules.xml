@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VehicleBazzar.iml" filepath="$PROJECT_DIR$/VehicleBazzar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidAppProject.iml" filepath="$PROJECT_DIR$/AndroidAppProject.iml" />
+      <module fileurl="file://C:\Users\Niwesh\Desktop\vehicleBazaar\AndroidAppProject\VehicleBazzar.iml" filepath="C:\Users\Niwesh\Desktop\vehicleBazaar\AndroidAppProject\VehicleBazzar.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Niwesh\Desktop\vehicleBazaar\AndroidAppProject\app\app.iml" filepath="C:\Users\Niwesh\Desktop\vehicleBazaar\AndroidAppProject\app\app.iml" />
     </modules>
   </component>
 </project>
