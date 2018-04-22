@@ -10,7 +10,7 @@ import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
  * Created by sumankhatiwada on 4/19/18.
  */
 
-public class ProfileFragement extends BaseFragment {
+public class ProfileFragment extends BaseFragment {
     @Override
     public int getContentView() {
         return R.layout.fragment_profile;
@@ -19,5 +19,6 @@ public class ProfileFragement extends BaseFragment {
     @Override
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
+
     }
 }

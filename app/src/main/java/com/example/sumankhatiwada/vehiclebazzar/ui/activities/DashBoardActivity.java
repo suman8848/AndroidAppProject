@@ -11,19 +11,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.sumankhatiwada.vehiclebazzar.MainActivity;
 import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
 import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardComponent;
-import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerLoginAndRegisterComponent;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
-import com.example.sumankhatiwada.vehiclebazzar.di.modules.LoginAndRegisterModule;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.DashBoardPresenter;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.AboutUsFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.HomeFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.NotificationFragment;
-import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.ProfileFragement;
+import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.ProfileFragment;
 
 import javax.inject.Inject;
 
@@ -74,7 +71,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView {
 
                     case R.id.action_profile:
                         showToast(DashBoardActivity.this, "Profile");
-                        setDesiredFragment(new ProfileFragement());
+                        setDesiredFragment(new ProfileFragment());
                         break;
 
                     case R.id.action_aboutUs:
@@ -104,7 +101,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView {
         String title = "";
         if (fragment instanceof HomeFragment) {
             title = getString(R.string.home);
-        } else if (fragment instanceof ProfileFragement) {
+        } else if (fragment instanceof ProfileFragment) {
             title = getString(R.string.profile);
         } else if (fragment instanceof AboutUsFragment) {
             title = getString(R.string.aboutus);
