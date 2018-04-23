@@ -16,4 +16,8 @@
     <string name="register_txt_link">Register</string>
     <string name="first_name">FIrst Name</string>
     <string name="last_name">Last Name</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="aboutus">About Us</string>
+    <string name="notification">Notification</string>
 </resources>

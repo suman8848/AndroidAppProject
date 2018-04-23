@@ -57,7 +57,7 @@ public class SplashActivity extends BaseActivity {
     }
     private void runAnimation()
     {
-        Animation a = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+        Animation a = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         a.reset();
         textView.clearAnimation();
         textView.startAnimation(a);

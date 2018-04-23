@@ -52,7 +52,7 @@ public class MainHomeActivity extends AppCompatActivity implements AppBarLayout.
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.home_fragment_container_frame, new HomeFragment());
+        fragmentTransaction.add(R.id.home_fragment_container_frame, new HomeDashFragment());
         fragmentTransaction.commit();
     }
 
