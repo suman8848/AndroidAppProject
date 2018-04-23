@@ -17,7 +17,7 @@ import java.util.Arrays;
 /**
   *author : Niwesh Chandra Rai
  **/
-public class HomeFragment extends Fragment {
+public class HomeDashFragment extends Fragment {
 
     private ArrayList<Cars> carList;
     private RecyclerView mRecyclerView;
