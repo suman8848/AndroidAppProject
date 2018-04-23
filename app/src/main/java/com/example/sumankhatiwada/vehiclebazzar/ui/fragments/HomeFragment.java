@@ -13,7 +13,7 @@ import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
 public class HomeFragment extends BaseFragment {
     @Override
     public int getContentView() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_dash_home;
     }
 
     @Override
