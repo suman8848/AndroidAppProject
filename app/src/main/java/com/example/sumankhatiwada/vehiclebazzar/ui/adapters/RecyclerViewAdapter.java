@@ -1,4 +1,4 @@
-package com.example.sumankhatiwada.vehiclebazzar.mvp.model.home;
+package com.example.sumankhatiwada.vehiclebazzar.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Cars;
 
 import java.util.ArrayList;
 

@@ -11,6 +11,11 @@ import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
  */
 
 public class AboutUsFragment extends BaseFragment {
+
+
+    public static AboutUsFragment newInstance(){
+        return new AboutUsFragment();
+    }
     @Override
     public int getContentView() {
         return R.layout.fragment_about_us;

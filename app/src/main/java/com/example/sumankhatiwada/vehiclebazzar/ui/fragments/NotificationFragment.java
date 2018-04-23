@@ -11,6 +11,10 @@ import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
  */
 
 public class NotificationFragment extends BaseFragment {
+
+    public static NotificationFragment newInstance(){
+        return new NotificationFragment();
+    }
     @Override
     public int getContentView() {
         return R.layout.fragment_notification;

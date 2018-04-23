@@ -1,4 +1,4 @@
-package com.example.sumankhatiwada.vehiclebazzar.mvp.model.home;
+package com.example.sumankhatiwada.vehiclebazzar.animation;
 
 import android.content.Context;
 import android.content.res.TypedArray;

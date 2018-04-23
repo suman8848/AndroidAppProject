@@ -8,7 +8,7 @@ import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterReque
 
 public interface ProfileView extends BaseView {
 
-    void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses);
+//    void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses);
     void onShowDialog(String message);
     void onHideDialog();
     void onShowToast(String message);

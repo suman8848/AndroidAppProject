@@ -1,5 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.mvp.view;
 
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
+
 /**
  * Created by sumankhatiwada on 4/18/18.
  */
@@ -7,5 +9,9 @@ package com.example.sumankhatiwada.vehiclebazzar.mvp.view;
 public interface DashBoardView extends BaseView {
 
     void onLogoutSuccess();
+    void onShowDialog(String message);
+    void onHideDialog();
+    void onShowToast(String message);
+    void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses);
 
 }

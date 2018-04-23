@@ -22,7 +22,7 @@ import rx.observers.Observers;
  * Created by sumankhatiwada on 4/22/18.
  */
 
-public class ProfileFragmentPresenter extends BasePresenter<ProfileView>implements Observer<RegisterRequestAndProfileResponses> {
+public class ProfileFragmentPresenter extends BasePresenter<ProfileView> {
 
     @Inject
     VehicleBazzarService vehicleBazzarService;
@@ -38,34 +38,5 @@ public class ProfileFragmentPresenter extends BasePresenter<ProfileView>implemen
     public ProfileFragmentPresenter() {
     }
 
-
-    public void getMyAccount() {
-        getView().onShowDialog("Showing Profile....");
-        userModel = getUserModelSession();
-        Observable<RegisterRequestAndProfileResponses> registerRequestAndProfileResponsesObservable = vehicleBazzarService.getMyProfile(userModel.getToken(), "application/json");
-        subscribe(registerRequestAndProfileResponsesObservable,this);
-    }
-
-    public UserModel getUserModelSession() {
-        mSharedPreferenceManager.initiateSharedPreferences(context);
-        return mSharedPreferenceManager.getUserModelFromPreferences();
-    }
-
-    @Override
-    public void onCompleted() {
-        getView().onHideDialog();
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        getView().onShowToast(e.getMessage());
-
-    }
-
-    @Override
-    public void onNext(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
-        Log.e("String",registerRequestAndProfileResponses.getFirstname()+ "~~~~~"+registerRequestAndProfileResponses.getEmail());
-        getView().onViewSuccess(registerRequestAndProfileResponses);
-    }
 
 }
