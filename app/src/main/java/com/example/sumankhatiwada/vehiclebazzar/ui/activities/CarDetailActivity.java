@@ -70,6 +70,14 @@ public class CarDetailActivity extends BaseActivity {
     protected void setToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+            }
+        });
         collapsingToolbarLayout.setTitle(carPostResponses.getName());
 //        collapsingToolbarLayout.setBackgroundColor(Color.BLACK);
 

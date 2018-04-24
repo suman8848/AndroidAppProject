@@ -1,6 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.ui.fragments;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,7 +42,6 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @BindView(R.id.home_recycler)
     RecyclerView mRecyclerView;
-
     @Inject
     HomeFragmentPresenter homeFragmentPresenter;
 
