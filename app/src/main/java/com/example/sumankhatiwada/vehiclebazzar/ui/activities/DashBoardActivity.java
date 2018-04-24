@@ -77,6 +77,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     TextView mTitle;
     @BindView(R.id.circular_image_toolbar)
     CircleImageView circleImageView;
+    @BindView(R.id.floatingActionBttn)
+    FloatingActionButton floatingActionButton;
 
 
     @BindView(R.id.bottom_navigation)
@@ -233,15 +235,19 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         String title = "";
         if (fragment instanceof HomeFragment) {
             title = getString(R.string.home);
+            floatingActionButton.setVisibility(View.VISIBLE);
             startFragment(fragment);
         } else if (fragment instanceof ProfileFragment) {
             title = getString(R.string.profile);
+            floatingActionButton.setVisibility(View.GONE);
             startFragment(fragment);
         } else if (fragment instanceof AboutUsFragment) {
             title = getString(R.string.aboutus);
+            floatingActionButton.setVisibility(View.GONE);
             startFragment(fragment);
         } else if (fragment instanceof NotificationFragment) {
             title = getString(R.string.notification);
+            floatingActionButton.setVisibility(View.GONE);
             startFragment(fragment);
         }
 
