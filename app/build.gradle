@@ -35,8 +35,10 @@ dependencies {
     //For Dagger2 DI
     implementation 'com.google.dagger:dagger:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    implementation 'com.google.dagger:dagger-android:2.11' // If you're using classes in dagger.android
-    implementation 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
+    implementation 'com.google.dagger:dagger-android:2.11'
+    // If you're using classes in dagger.android
+    implementation 'com.google.dagger:dagger-android-support:2.11'
+    // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
 //
 //    provided 'com.google.dagger:dagger-compiler:2.1'
@@ -47,7 +49,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.+'
-
 
     //For Butternife injecting view
 //    compile 'com.jakewharton:butterknife:7.0.1'
@@ -81,4 +82,6 @@ dependencies {
 
     //recyclerView
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

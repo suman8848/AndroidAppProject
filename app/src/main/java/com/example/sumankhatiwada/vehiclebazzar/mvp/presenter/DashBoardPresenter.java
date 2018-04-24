@@ -48,7 +48,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
 
     public void getMyAccount() {
-        getView().onShowDialog("Showing Profile....");
+        getView().onShowDialog("Loading....");
         userModel = getUserModelSession();
         Observable<RegisterRequestAndProfileResponses> registerRequestAndProfileResponsesObservable = vehicleBazzarService.getMyProfile(userModel.getToken(), "application/json");
         subscribe(registerRequestAndProfileResponsesObservable, new Observer<RegisterRequestAndProfileResponses>() {
@@ -68,6 +68,8 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
             }
         });
     }
+
+
 
 
 }

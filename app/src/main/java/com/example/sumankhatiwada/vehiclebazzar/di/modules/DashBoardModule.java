@@ -3,6 +3,7 @@ package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.view.HomeView;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.ProfileView;
 import com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices.VehicleBazzarService;
 
@@ -18,17 +19,29 @@ public class DashBoardModule {
 
     DashBoardView dashBoardView;
     ProfileView profileView;
+    HomeView homeView;
 
     public DashBoardModule(DashBoardView dashBoardView) {
         this.dashBoardView = dashBoardView;
     }
+
     public DashBoardModule(ProfileView profileView) {
         this.profileView = profileView;
     }
 
+    public DashBoardModule(HomeView homeView) {
+        this.homeView = homeView;
+    }
+
     @PerActivity
     @Provides
-    public ProfileView provideProfileView(){
+    public HomeView provideHomeView() {
+        return homeView;
+    }
+
+    @PerActivity
+    @Provides
+    public ProfileView provideProfileView() {
         return profileView;
     }
 

@@ -36,6 +36,7 @@
                     android:layout_gravity="bottom|left"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/dp_16"
                     >
 
                     <TextView
@@ -68,10 +69,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <FrameLayout
             android:id="@+id/home_fragment_container_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         </FrameLayout>
 
@@ -124,6 +126,7 @@
         app:finalHeight="@dimen/image_final_width"
         app:finalXPosition="@dimen/spacing_small"
         app:finalYPosition="@dimen/spacing_small"
+        android:layout_marginLeft="16dp"
         app:finalToolbarHeight="?attr/actionBarSize"
         app:layout_behavior="com.example.sumankhatiwada.vehiclebazzar.animation.AvatarImageBehavior"
         />
