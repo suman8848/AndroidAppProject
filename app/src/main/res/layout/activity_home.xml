@@ -164,6 +164,7 @@
         tools:ignore="RtlHardcoded"
         android:layout_marginBottom="@dimen/dp_60"
         android:layout_marginRight="@dimen/dp_16"
+        app:layout_behavior="com.example.sumankhatiwada.vehiclebazzar.utils.ScrollingFabButtonBehaviour"
         />
 </android.support.design.widget.CoordinatorLayout>
 

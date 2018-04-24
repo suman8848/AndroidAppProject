@@ -20,4 +20,5 @@
     <string name="profile">Profile</string>
     <string name="aboutus">About Us</string>
     <string name="notification">Notification</string>
+    <string name="add_post">Add Your Post</string>
 </resources>

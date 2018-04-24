@@ -23,64 +23,40 @@ public class ScrollingFabButtonBehaviour extends CoordinatorLayout.Behavior<Floa
     }
 
 
-
     @Override
     public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, final FloatingActionButton child, View target) {
         super.onStopNestedScroll(coordinatorLayout, child, target);
 
-        if (mHandler == null)
-            mHandler = new Handler();
-
-
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
-                Log.d("FabAnim", "startHandler()");
-            }
-        }, 1000);
 
     }
 
     @Override
-    public void onNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+    public void onNestedScroll(CoordinatorLayout coordinatorLayout, final FloatingActionButton child,
+                               View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed,
+                dyUnconsumed);
 
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
-            child.hide();
-        } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
+            child.hide(new FloatingActionButton.OnVisibilityChangedListener() {
+                @Override
+                public void onShown(FloatingActionButton fab) {
+                    super.onShown(fab);
+                }
+
+                @Override
+                public void onHidden(FloatingActionButton fab) {
+                    super.onHidden(fab);
+                    child.setVisibility(View.INVISIBLE);
+                }
+            });
+        } else if (dyConsumed <= 0 && child.getVisibility() != View.VISIBLE) {
             child.show();
         }
-
-//        //child -> Floating Action Button
-//        Log.d("Value",dyConsumed+"" );
-//        if (dyConsumed > 0) {
-//            Log.d("Scrolling", "Up");
-//            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
-//            int fab_bottomMargin = layoutParams.bottomMargin;
-//            child.animate().translationY(child.getHeight() + fab_bottomMargin).setInterpolator(new LinearInterpolator()).start();
-//            child.hide();
-//        } else if (dyConsumed < 0) {
-//            Log.d("Scrolling", "down");
-//            child.show();
-//            child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
-//        }
     }
-
-//    @Override
-//    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View directTargetChild, View target, int nestedScrollAxes) {
-//        if (mHandler != null) {
-//            mHandler.removeMessages(0);
-//            Log.d("Scrolling", "stopHandler()");
-//        }
-//        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
-//    }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout,
-                                       FloatingActionButton child, View directTargetChild, View target, int nestedScrollAxes) {
-        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-                super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
-                        nestedScrollAxes);
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View directTargetChild, View target, int nestedScrollAxes) {
+        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
+
 }
