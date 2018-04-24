@@ -1,4 +1,4 @@
-package com.example.sumankhatiwada.vehiclebazzar.mvp.model.home;
+package com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels;
 
 /**
  * Created by Niwesh on 4/19/2018.

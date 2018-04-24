@@ -3,13 +3,14 @@ package com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by sumankhatiwada on 4/18/18.
  */
 
-public class RegisterRequestAndProfileResponses {
+public class RegisterRequestAndProfileResponses implements Serializable {
     @SerializedName("firstname")
     @Expose
     private String firstname;

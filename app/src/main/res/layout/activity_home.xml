@@ -7,46 +7,51 @@
     >
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/main_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"        >
+        android:stateListAnimator="@null"
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+            android:id="@+id/main_collapsing"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/expanded_toolbar_height"
-            android:background="@color/colorPrimaryDark"
+            android:layout_height="160dp"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             >
 
             <FrameLayout
-                android:id="@+id/main.framelayout.title"
+                android:id="@+id/main_framelayout_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_vertical"
                 >
 
                 <LinearLayout
-                    android:id="@+id/main.linearlayout.title"
+                    android:id="@+id/main_linearlayout_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_gravity="bottom|left"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/dp_16"
                     >
 
                     <TextView
+                        android:id="@+id/txt_welcome_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="bottom|center_horizontal"
                         android:text="Niwesh Chandra Rai"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/textsize_xlarge"
+                        android:textSize="@dimen/textsize_medium"
                         />
 
                     <TextView
+                        android:id="@+id/txt_welcome_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -64,10 +69,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <FrameLayout
             android:id="@+id/home_fragment_container_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         </FrameLayout>
 
@@ -75,13 +81,12 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/main.toolbar"
+        android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        app:layout_anchor="@id/main.collapsing"
+        android:background="@color/colorPrimary"
+        app:layout_anchor="@id/main_collapsing"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title=""
         >
 
         <LinearLayout
@@ -96,23 +101,24 @@
                 />
 
             <TextView
-                android:id="@+id/main.textview.title"
+                android:id="@+id/main_textview_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:gravity="center_vertical"
-                android:text="Vehicle Bazaar"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/textsize_large"
+                android:visibility="gone"
                 />
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="@dimen/image_width"
-        android:layout_height="@dimen/image_width"
-        android:layout_gravity="top|center_horizontal"
+        android:id="@+id/circular_image_toolbar"
+        android:layout_width="@dimen/dp_72"
+        android:layout_height="@dimen/dp_72"
+        android:layout_gravity="top|left"
         android:layout_marginTop="@dimen/spacing_normal"
         android:src="@drawable/ninja"
         app:border_color="@android:color/white"
@@ -120,9 +126,23 @@
         app:finalHeight="@dimen/image_final_width"
         app:finalXPosition="@dimen/spacing_small"
         app:finalYPosition="@dimen/spacing_small"
+        android:layout_marginLeft="16dp"
         app:finalToolbarHeight="?attr/actionBarSize"
-        app:layout_behavior="com.example.niwesh.recyclerviewapplication.AvatarImageBehavior"
+        app:layout_behavior="com.example.sumankhatiwada.vehiclebazzar.animation.AvatarImageBehavior"
         />
 
+    <android.support.design.widget.BottomNavigationView
+
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/menu_bottom" />
 
 </android.support.design.widget.CoordinatorLayout>
+
+

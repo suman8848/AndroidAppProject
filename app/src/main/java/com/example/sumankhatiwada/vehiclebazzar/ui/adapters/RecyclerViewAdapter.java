@@ -1,7 +1,9 @@
-package com.example.sumankhatiwada.vehiclebazzar.mvp.model.home;
+package com.example.sumankhatiwada.vehiclebazzar.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +11,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
-
-import java.util.ArrayList;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
+import com.squareup.picasso.Picasso;
+import java.util.List;
 
 /**
  * Created by Niwesh on 4/19/2018.
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
-    private ArrayList<Cars> feedItemList;
+    private List<CarPostResponses> feedItemList;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Cars> feedItemList) {
+    public interface OnItemClickListener {
+        void onItemClick(CarPostResponses item);
+    }
+    private OnItemClickListener listener;
+
+    public RecyclerViewAdapter(Context context, List<CarPostResponses> feedItemList, OnItemClickListener listener) {
         this.feedItemList = feedItemList;
+        Log.e("TEst",feedItemList.size()+"");
         this.mContext = context;
+        this.listener = listener;
+
     }
 
     @Override
@@ -34,21 +45,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.CustomViewHolder customViewHolder, int i) {
-        Cars feedItem = feedItemList.get(i);
+        final CarPostResponses feedItem = feedItemList.get(i);
 
-        //Render image using Picasso library
-//        if (!TextUtils.isEmpty(feedItem.getThumbnail())) {
-//            Picasso.with(mContext).load(feedItem.getThumbnail())
-//                    .error(R.drawable.placeholder)
-//                    .placeholder(R.drawable.placeholder)
-//                    .into(customViewHolder.imageView);
-//        }
+//        Render image using Picasso library
+        if (feedItem.getBoatImage().size()>0) {
+            Picasso.with(mContext).load(feedItem.getBoatImage().get(0))
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(customViewHolder.imageView);
+        }
 
-        //Setting text view title
-
-        int imgID = mContext.getResources().getIdentifier(feedItemList.get(i).getImage(),"drawable", mContext.getPackageName());
-        customViewHolder.imageView.setImageResource(imgID);
         customViewHolder.textView.setText(feedItemList.get(i).getName());
+        customViewHolder.userName.setText(feedItemList.get(i).getUser());
+        customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(feedItem);
+            }
+        });
+
     }
 
     @Override
@@ -59,11 +74,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class CustomViewHolder extends RecyclerView.ViewHolder {
         protected ImageView imageView;
         protected TextView textView;
+        protected TextView userName;
 
         public CustomViewHolder(View view) {
             super(view);
             this.imageView = (ImageView) view.findViewById(R.id.custom_image);
             this.textView = (TextView) view.findViewById(R.id.custom_name);
+            this.userName = (TextView) view.findViewById(R.id.txt_UserName);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.sumankhatiwada.vehiclebazzar.ui.fragments;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import butterknife.OnClick;
 
 public class ProfileFragment extends BaseFragment implements ProfileView {
 
+    public static final String PROFILE_KEY = "profileKey";
     @BindView(R.id.et_profile_email)
     EditText etProfileEmail;
 
@@ -52,6 +54,15 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     @Inject
     ProfileFragmentPresenter profileFragmentPresenter;
 
+    public static ProfileFragment newInstance(RegisterRequestAndProfileResponses responses) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PROFILE_KEY, responses);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     @Override
     public int getContentView() {
         return R.layout.fragment_profile;
@@ -60,8 +71,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     @Override
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
+        Bundle bundle =getArguments();
+       RegisterRequestAndProfileResponses responses= (RegisterRequestAndProfileResponses)bundle.getSerializable(PROFILE_KEY);
+//        etProfileAddress.setText(responses.getAddress().getCity());
+        etProfileEmail.setText(responses.getEmail());
+        etProfilePhone.setText(responses.getPhone());
 
-        profileFragmentPresenter.getMyAccount();
     }
 
     @Override
@@ -71,15 +86,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
                 .dashBoardModule(new DashBoardModule(this))
                 .build()
                 .inject(this);
-    }
-
-    @Override
-    public void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
-        etProfileAddress.setText(registerRequestAndProfileResponses.getAddress().getCity());
-        etProfileEmail.setText(registerRequestAndProfileResponses.getEmail());
-        etProfilePhone.setText(registerRequestAndProfileResponses.getPhone());
-
-
     }
 
     @OnClick(R.id.btn_email_edit_save)
