@@ -4,32 +4,51 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Comment;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.DashBoardPresenter;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindInt;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by sumankhatiwada on 4/23/18.
  */
 
-public class CarDetailActivity extends BaseActivity {
+public class CarDetailActivity extends BaseActivity implements DashBoardView {
     public static final String GET_KEY_FOR_EACH_CAR = "getAllValue";
 
     @BindView(R.id.imageview_car_detail)
@@ -41,10 +60,23 @@ public class CarDetailActivity extends BaseActivity {
 
     @BindView(R.id.txtview_car_item_desc)
     TextView textViewCarDesc;
+
+    @BindView(R.id.carview_comment_linear)
+    LinearLayout linearLayout;
+
+    @BindView(R.id.cardview_comment_by)
+    LinearLayout linearLayout1;
+
+    CarPostResponses carPostResponses;
+    ArrayList<Comment> carPostResponsesListComments;
+    UserModel userModel;
+
+    @Inject
+    DashBoardPresenter dashBoardPresenter;
+
     @BindView(R.id.et_comment)
     EditText editTextComment;
 
-    CarPostResponses carPostResponses;
 
     @Override
     protected int getContentView() {
@@ -56,8 +88,8 @@ public class CarDetailActivity extends BaseActivity {
         super.onViewReady(savedInstanceState, intent);
         hideSoftKeyboard();
         carPostResponses = intent.getParcelableExtra(GET_KEY_FOR_EACH_CAR);
-//        textView.setText(carPostResponses.getDescription());
-
+        carPostResponsesListComments = intent.getParcelableArrayListExtra("comments");
+        userModel= intent.getParcelableExtra("usermodels");
         Picasso.with(this).load(carPostResponses.getBoatImage().get(0))
                 .error(R.drawable.ic_launcher_background)
                 .placeholder(R.drawable.ic_launcher_background)
@@ -65,6 +97,41 @@ public class CarDetailActivity extends BaseActivity {
         setToolbar();
         textViewCarDesc.setText(carPostResponses.getDescription());
 
+        for (int i = 0; i < carPostResponsesListComments.size(); i++) {
+            TextView textView = new TextView(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(20, 10, 10, 10);
+            textView.setTypeface(Typeface.DEFAULT_BOLD);
+            textView.setLayoutParams(layoutParams);
+            textView.setText("User: " + carPostResponsesListComments.get(i).getUser());
+
+            TextView textView1 = new TextView(this);
+            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams1.setMargins(20, 10, 10, 10);
+            textView1.setLayoutParams(layoutParams1);
+            textView1.setTypeface(Typeface.SANS_SERIF);
+            textView1.setText(carPostResponsesListComments.get(i).getBody());
+            LinearLayout a = new LinearLayout(this);
+            a.setOrientation(LinearLayout.VERTICAL);
+            a.addView(textView);
+
+            LinearLayout b = new LinearLayout(this);
+            b.setOrientation(LinearLayout.HORIZONTAL);
+            b.addView(textView1);
+            linearLayout1.addView(a);
+            linearLayout1.addView(b);
+
+        }
+
+
+    }
+
+    @OnClick(R.id.btn_send_comment)
+    public void sendComment(){
+        String etComment = editTextComment.getText().toString();
+            dashBoardPresenter.sendComment();
     }
 
     protected void setToolbar() {
@@ -79,10 +146,33 @@ public class CarDetailActivity extends BaseActivity {
             }
         });
         collapsingToolbarLayout.setTitle(carPostResponses.getName());
-//        collapsingToolbarLayout.setBackgroundColor(Color.BLACK);
-
         collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
 
+    }
+
+    @Override
+    public void onLogoutSuccess() {
+        //DO Nothing
+    }
+
+    @Override
+    public void onShowDialog(String message) {
+        showDialog(message);
+    }
+
+    @Override
+    public void onHideDialog() {
+        hideDialog();
+    }
+
+    @Override
+    public void onShowToast(String message) {
+        showToast(this,message);
+    }
+
+    @Override
+    public void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
+//        doNothing
     }
 }

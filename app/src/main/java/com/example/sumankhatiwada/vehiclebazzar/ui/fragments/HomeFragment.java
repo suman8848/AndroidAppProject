@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
@@ -13,6 +14,8 @@ import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardCom
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Cars;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Comment;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.HomeFragmentPresenter;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.HomeView;
 import com.example.sumankhatiwada.vehiclebazzar.ui.activities.CarDetailActivity;
@@ -45,6 +48,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @Inject
     HomeFragmentPresenter homeFragmentPresenter;
 
+    UserModel userModel;
     private RecyclerViewAdapter adapter;
 
     public static HomeFragment newInstance() {
@@ -60,17 +64,18 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @Override
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) );
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         homeFragmentPresenter.getPostOfCars();
         carList = new ArrayList<CarPostResponses>();
-
+        userModel = homeFragmentPresenter.getUserModelSession();
     }
 
     @Override
     public void onLoadPostSuccess(List<CarPostResponses> carPostResponses) {
         final String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-        Log.e("TeSt",carPostResponses.get(0).getName());
-        Log.e("TeSting ",carPostResponses.get(0).getBoatImage().get(0));
+        Log.e("TeSt", carPostResponses.get(0).getName());
+        Log.e("TeSting ", carPostResponses.get(carPostResponses.size()-1).getComments().get(0).getUser());
+
         carList = carPostResponses;
         Collections.sort(carList, new Comparator<CarPostResponses>() {
             @Override
@@ -81,6 +86,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
                 try {
                     date1 = format.parse(carPostResponses.getCreatedDate());
                     date2 = format.parse(t1.getCreatedDate());
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -90,8 +96,17 @@ public class HomeFragment extends BaseFragment implements HomeView {
         adapter = new RecyclerViewAdapter(getActivity(), carList, new RecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarPostResponses item) {
-                showToast(getActivity(),""+item.getName());
-                startActivity(new Intent(getActivity(),CarDetailActivity.class).putExtra(CarDetailActivity.GET_KEY_FOR_EACH_CAR,item));
+                ArrayList<Comment> comments = new ArrayList<>();
+                if(item.getComments().size()>0) {
+                    for(int i = 0 ; i<item.getComments().size();i++) {
+                        comments.add(item.getComments().get(i));
+                    }
+                }
+                startActivity(new Intent(getActivity(), CarDetailActivity.class)
+                        .putExtra("usermodels",userModel)
+                        .putExtra(CarDetailActivity.GET_KEY_FOR_EACH_CAR, item)
+                        .putParcelableArrayListExtra("comments",comments)
+                );
             }
         });
         adapter.notifyDataSetChanged();
@@ -103,7 +118,6 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @Override
     public void onShowDialog(String message) {
         showDialog(message);
-
     }
 
     @Override
@@ -113,7 +127,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @Override
     public void onShowToast(String message) {
-        showToast(getActivity(),message);
+        showToast(getActivity(), message);
     }
 
     @Override

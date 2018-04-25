@@ -3,6 +3,7 @@ package com.example.sumankhatiwada.vehiclebazzar.mvp.presenter;
 import android.content.Context;
 
 import com.example.sumankhatiwada.vehiclebazzar.base.BasePresenter;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Comment;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.SharedPreferenceManager;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
@@ -70,6 +71,25 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
     }
 
 
-
-
+//    public void sendComment() {
+//        getView().onShowDialog("Loading....");
+//        userModel = getUserModelSession();
+//        Observable<Comment> registerRequestAndProfileResponsesObservable = vehicleBazzarService.get(userModel.getToken(), "application/json");
+//        subscribe(registerRequestAndProfileResponsesObservable, new Observer<RegisterRequestAndProfileResponses>() {
+//            @Override
+//            public void onCompleted() {
+//                getView().onHideDialog();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                getView().onShowToast(e.getMessage());
+//            }
+//
+//            @Override
+//            public void onNext(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
+//                getView().onViewSuccess(registerRequestAndProfileResponses);
+//            }
+//        });
+//    }
 }

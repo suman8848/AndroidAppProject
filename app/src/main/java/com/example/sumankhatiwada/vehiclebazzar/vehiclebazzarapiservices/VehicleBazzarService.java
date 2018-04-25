@@ -33,4 +33,7 @@ public interface VehicleBazzarService {
 
     @GET("/api/auth/boat")
     Observable<List<CarPostResponses>> getAllPost(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
+
+    @POST("api/auth/boat/5a7a19d159b0d358b0bbd862/comment")
+    Observable<List<CarPostResponses>> getComment(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 }
