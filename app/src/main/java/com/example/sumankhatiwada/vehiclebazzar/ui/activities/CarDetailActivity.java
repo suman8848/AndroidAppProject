@@ -25,12 +25,17 @@ import android.widget.Toast;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
+import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardComponent;
+import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Comment;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.DashBoardPresenter;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -131,7 +136,10 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
     @OnClick(R.id.btn_send_comment)
     public void sendComment(){
         String etComment = editTextComment.getText().toString();
-            dashBoardPresenter.sendComment();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        System.out.println("token -->>> " + token);
+//              String token1=  new Gson().toJson(token);
+            dashBoardPresenter.sendNotification(etComment,token);
     }
 
     protected void setToolbar() {
@@ -174,5 +182,19 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
     @Override
     public void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
 //        doNothing
+    }
+
+    @Override
+    public void onNotifiedSuccess(MessageDTO messageDTO) {
+        System.out.println("response -->>>> " + messageDTO);
+    }
+
+    @Override
+    protected void resolveDaggerDependency() {
+        super.resolveDaggerDependency();
+        DaggerDashBoardComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .dashBoardModule(new DashBoardModule(this))
+                .build().inject(this);
     }
 }

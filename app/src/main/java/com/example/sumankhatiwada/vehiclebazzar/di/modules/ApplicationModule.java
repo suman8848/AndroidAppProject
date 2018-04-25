@@ -33,7 +33,6 @@ public class ApplicationModule {
         this.mContext = context;
     }
 
-
     @Singleton
     @Provides
     GsonConverterFactory provideGsonConverterFactory() {

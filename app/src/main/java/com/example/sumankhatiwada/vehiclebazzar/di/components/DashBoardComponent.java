@@ -21,4 +21,5 @@ public interface DashBoardComponent {
     void inject(DashBoardActivity dashBoardActivity);
     void inject(ProfileFragment profileFragment);
     void inject(HomeFragment homeFragment);
+    void inject(CarDetailActivity carDetailActivity);
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "287586620251",
+    "firebase_url": "https://mummobileapp.firebaseio.com",
+    "project_id": "mummobileapp",
+    "storage_bucket": "mummobileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287586620251:android:0614e820337769bf",
+        "android_client_info": {
+          "package_name": "com.example.sumankhatiwada.vehiclebazzar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287586620251-ratbfjpis8hp4ukbmo06k9ueo0j12hr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuJLwf3gty6ZwlH7-Ga_JzquC-5bqO5z4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

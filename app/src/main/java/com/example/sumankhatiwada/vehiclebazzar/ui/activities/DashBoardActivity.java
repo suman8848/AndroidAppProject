@@ -33,6 +33,7 @@ import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
 import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardComponent;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.DashBoardPresenter;
@@ -107,43 +108,50 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         super.onViewReady(savedInstanceState, intent);
         setToolbar();
         dashBoardPresenter.getMyAccount();
-        setDesiredFragment(HomeFragment.newInstance());
-        mAppBarLayout.addOnOffsetChangedListener(this);
-        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+       int check= getIntent().getIntExtra("checker",0);
+       if(check==1){
+           bottomNavigationView.setSelectedItemId(R.id.action_Notification);
+           setDesiredFragment(NotificationFragment.newInstance());
 
-                switch (item.getItemId()) {
-                    case R.id.action_home:
+       }else {
+           setDesiredFragment(HomeFragment.newInstance());
+           mAppBarLayout.addOnOffsetChangedListener(this);
+           startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+           AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+           bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+               @Override
+               public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                   switch (item.getItemId()) {
+                       case R.id.action_home:
 //                        showToast(DashBoardActivity.this, "Home");
-                        setDesiredFragment(HomeFragment.newInstance());
-                        break;
+                           setDesiredFragment(HomeFragment.newInstance());
+                           break;
 
-                    case R.id.action_profile:
-                        showToast(DashBoardActivity.this, "Profile");
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(ProfileFragment.PROFILE_KEY, responses);
-                        Fragment fragment = ProfileFragment.newInstance(responses);
-                        fragment.setArguments(bundle);
-                        setDesiredFragment(fragment);
-                        break;
+                       case R.id.action_profile:
+                           showToast(DashBoardActivity.this, "Profile");
+                           Bundle bundle = new Bundle();
+                           bundle.putSerializable(ProfileFragment.PROFILE_KEY, responses);
+                           Fragment fragment = ProfileFragment.newInstance(responses);
+                           fragment.setArguments(bundle);
+                           setDesiredFragment(fragment);
+                           break;
 
-                    case R.id.action_aboutUs:
-                        showToast(DashBoardActivity.this, "AboutUs");
-                        setDesiredFragment(AboutUsFragment.newInstance());
-                        break;
+                       case R.id.action_aboutUs:
+                           showToast(DashBoardActivity.this, "AboutUs");
+                           setDesiredFragment(AboutUsFragment.newInstance());
+                           break;
 
-                    case R.id.action_Notification:
-                        showToast(DashBoardActivity.this, "Notification");
-                        setDesiredFragment(NotificationFragment.newInstance());
-                        break;
+                       case R.id.action_Notification:
+                           showToast(DashBoardActivity.this, "Notification");
+                           setDesiredFragment(NotificationFragment.newInstance());
+                           break;
 
-                }
-                return true;
-            }
-        });
+                   }
+                   return true;
+               }
+           });
+       }
 
         UserModel userModel = dashBoardPresenter.getUserModelSession();
 
@@ -303,6 +311,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Override
     public void onShowToast(String message) {
         showToast(this, message);
+
     }
 
     @Override
@@ -310,6 +319,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         responses = registerRequestAndProfileResponses;
         textViewWelcomeEmail.setText(responses.getEmail());
         textViewWelcomeName.setText(responses.getFirstname() + " " + responses.getLastname());
+    }
+
+    @Override
+    public void onNotifiedSuccess(MessageDTO messageDTO) {
+        //DO Nothing
     }
 
     @Override
