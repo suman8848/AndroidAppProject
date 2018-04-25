@@ -177,12 +177,12 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     private void openDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.post_update);
+        dialog.setContentView(R.layout.post_update_new);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
 
         img_camera = (ImageView) dialog.findViewById(R.id.post_image_camera);
         img_gallery = (ImageView) dialog.findViewById(R.id.post_image_browse);
-        img = (ImageView) dialog.findViewById(R.id.post_image);
+        img = (ImageView) dialog.findViewById(R.id.imageview_from_gallery);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             img_camera.setEnabled(false);
