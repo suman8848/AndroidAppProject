@@ -32,8 +32,9 @@ public class NotificationFragment extends BaseFragment {
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
         String title =getArguments().getString(DashBoardActivity.BUNDLE_NOTIFICATION_TITLE);
-       String body = getArguments().getString(DashBoardActivity.BUNDLE_NOTIFICATION_BODY);
+        String body = getArguments().getString(DashBoardActivity.BUNDLE_NOTIFICATION_BODY);
 
+        //Need to render data from the Cursor of SQLite Database
 
 
     }
