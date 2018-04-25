@@ -2,6 +2,7 @@ package com.example.sumankhatiwada.vehiclebazzar.ui.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -102,6 +103,23 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
         setToolbar();
         textViewCarDesc.setText(carPostResponses.getDescription());
 
+
+
+    }
+
+    @OnClick(R.id.btn_send_comment)
+    public void sendComment(){
+        String etComment = editTextComment.getText().toString();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        System.out.println("token -->>> " + token);
+//              String token1=  new Gson().toJson(token);
+            dashBoardPresenter.sendNotification(etComment,token);
+            dashBoardPresenter. comment(carPostResponses.getId(),etComment);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         for (int i = 0; i < carPostResponsesListComments.size(); i++) {
             TextView textView = new TextView(this);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -130,16 +148,6 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
 
         }
 
-
-    }
-
-    @OnClick(R.id.btn_send_comment)
-    public void sendComment(){
-        String etComment = editTextComment.getText().toString();
-        String token = FirebaseInstanceId.getInstance().getToken();
-        System.out.println("token -->>> " + token);
-//              String token1=  new Gson().toJson(token);
-            dashBoardPresenter.sendNotification(etComment,token);
     }
 
     protected void setToolbar() {
@@ -187,6 +195,11 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
     @Override
     public void onNotifiedSuccess(MessageDTO messageDTO) {
         System.out.println("response -->>>> " + messageDTO);;
+    }
+
+    @Override
+    public void onCommentSuccess() {
+        startActivity(new Intent(this,DashBoardActivity.class));
     }
 
     @Override

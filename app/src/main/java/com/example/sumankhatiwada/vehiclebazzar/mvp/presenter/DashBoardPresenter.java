@@ -3,15 +3,19 @@ package com.example.sumankhatiwada.vehiclebazzar.mvp.presenter;
 import android.content.Context;
 
 import com.example.sumankhatiwada.vehiclebazzar.base.BasePresenter;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Comment;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentReq;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.NotificationRequest;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.TokenDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.SharedPreferenceManager;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
 import com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices.VehicleBazzarService;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -36,6 +40,8 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
     @Inject
     Context mContext;
 
+    @Inject
+    CommentObject comment;
 
 
     @Inject
@@ -96,6 +102,42 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
             @Override
             public void onNext(MessageDTO messageDTO) {
                 getView().onNotifiedSuccess(messageDTO);
+            }
+        });
+    }
+
+    public void comment(String id,String commentBody) {
+        getView().onShowDialog("Posting Comment");
+        System.out.println("ID------->"+ id);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        CommentObject co = new CommentObject();
+        co.setBody(commentBody);
+        co.setDate(formatter.format(date));
+        co.setUser("test");
+        CommentReq commentReq = new CommentReq();
+        commentReq.setComments(co);
+        String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/"+id+"/comment";
+        System.out.println("URL---->"+fullUrl+":::::"+ comment +"9999>"+userModel.getToken());
+        Observable<CarPostResponses> setComment = vehicleBazzarService.comment(fullUrl,commentReq,userModel.getToken(),"application/json");
+        subscribe(setComment, new Observer<CarPostResponses>() {
+            @Override
+            public void onCompleted() {
+                getView().onHideDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().onHideDialog();
+                System.out.println("FORBIDDEN"+ e.getMessage());
+                getView().onShowToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(CarPostResponses carPostResponses) {
+                getView().onHideDialog();
+               // System.out.println("RESPONSECARE------->"+carPostResponses.getComments().get(0).getBody());
+                getView().onCommentSuccess();
             }
         });
     }

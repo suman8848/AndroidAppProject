@@ -1,8 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.NotificationRequest;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.HomeView;
@@ -63,6 +62,12 @@ public class DashBoardModule {
     @Provides
     UserModel providesUserModel() {
         return new UserModel();
+    }
+
+    @PerActivity
+    @Provides
+    CommentObject providesComment() {
+        return new CommentObject();
     }
 
 }

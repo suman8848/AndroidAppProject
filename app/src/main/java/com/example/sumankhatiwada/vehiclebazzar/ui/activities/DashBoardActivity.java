@@ -34,6 +34,7 @@ import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
 import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardComponent;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
@@ -336,6 +337,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Override
     public void onNotifiedSuccess(MessageDTO messageDTO) {
         //DO Nothing
+    }
+
+    @Override
+    public void onCommentSuccess() {
+
     }
 
     @Override
