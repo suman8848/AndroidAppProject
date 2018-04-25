@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,15 +29,15 @@
                 android:text="Add files through camera"
                 android:layout_height="wrap_content"
                 android:gravity="end" />
-
+<!--
             <ImageView
                 android:id="@+id/post_image_camera"
                 android:layout_width="0dp"
                 android:layout_weight="0.1"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_photo_camera_black"
+                android::src="@drawable/ic_photo_camera_black"
                 android:clickable="true"
-                android:onClick="camera"/>
+                android:onClick="camera"/>-->
 
         </LinearLayout>
 
@@ -57,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="end" />
 
-            <ImageView
+           <!-- <ImageView
                 android:id="@+id/post_image_browse"
                 android:layout_width="0dp"
                 android:layout_weight="0.1"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_open_in_browser_black"
                 android:clickable="true"
-                android:onClick="gallery"/>
+                android:onClick="gallery"/>-->
 
         </LinearLayout>
 

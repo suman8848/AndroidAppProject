@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
@@ -68,6 +71,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     public static final String BUNDLE_NOTIFICATION_BODY="bundleNotificationbody";
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
+    ImageView img,img_camera, img_gallery;
 
     @BindView(R.id.main_toolbar)
     Toolbar mToolbar;
@@ -164,7 +168,6 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
 
 //        textViewWelcomeEmail.setText(userModel.get);
 
-
     }
 
     @OnClick(R.id.floatingActionBttn)
@@ -173,24 +176,18 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     }
 
     private void openDialog() {
-        final Dialog dialog = new Dialog(this, WindowManager.LayoutParams.MATCH_PARENT);
-        dialog.setContentView(R.layout.post_update_new);
-        //For opening keyboard after request focus for dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.post_update);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
 
-        dialog.show();
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
-
-        ImageView img_View, img_camera, img_gallery;
-        String path;
         img_camera = (ImageView) dialog.findViewById(R.id.post_image_camera);
         img_gallery = (ImageView) dialog.findViewById(R.id.post_image_browse);
+        img = (ImageView) dialog.findViewById(R.id.post_image);
 
-        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/mypicture.jpg";
-
-        // If we don’t have the appropriate permissions, we disable the button until we do.
-        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             img_camera.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
 
         img_camera.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +200,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
             }
         });
 
+
         img_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,32 +209,29 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
                 i.setAction(Intent.ACTION_PICK);
                 i.setType("image/*");
                 // Start the Gallery Intent activity with the request_code 2
-                startActivityForResult(i, 2);
+                startActivityForResult(i,2);
             }
         });
 
-//        dialog.show();
+        dialog.show();
     }
 
+    // To perform post Activities write your logic in the onActivityResult(), the user actions are determined based on the requestCode
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Intent object data automatically store the selected file path from the Image Gallery from your device storage
         super.onActivityResult(requestCode, resultCode, data);
-        ImageView img_View = (ImageView) findViewById(R.id.post_image);
-        Log.e("name", String.valueOf(resultCode));
-        Log.e("name", String.valueOf(requestCode));
-        Log.e("name", data.toString());
 
         // Logic to get from Bundle
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            img_View.setImageBitmap(imageBitmap);
-        } else if (requestCode == 2) { // For Clicking Gallery button
-            // Set the selected image from the device image gallery to the ImageView component
-            img_View.setImageURI(data.getData());
+            img.setImageBitmap(imageBitmap);
         }
-
+        else if(requestCode==2 && resultCode == RESULT_OK){ // For Clicking Gallery button
+            // Set the selected image from the device image gallery to the ImageView component
+            img.setImageURI(data.getData());
+        }
     }
 
     public void setToolbar() {
