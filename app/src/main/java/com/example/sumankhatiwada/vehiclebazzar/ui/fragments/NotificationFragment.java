@@ -3,9 +3,11 @@ package com.example.sumankhatiwada.vehiclebazzar.ui.fragments;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseFragment;
+import com.example.sumankhatiwada.vehiclebazzar.ui.activities.DashBoardActivity;
 
 import butterknife.BindView;
 
@@ -29,7 +31,11 @@ public class NotificationFragment extends BaseFragment {
     @Override
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
+        String title =getArguments().getString(DashBoardActivity.BUNDLE_NOTIFICATION_TITLE);
+       String body = getArguments().getString(DashBoardActivity.BUNDLE_NOTIFICATION_BODY);
+
 
 
     }
+
 }

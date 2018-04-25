@@ -36,8 +36,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
     @Inject
     Context mContext;
 
-    @Inject
-    NotificationRequest notificationRequest;
+
 
     @Inject
     protected DashBoardPresenter() {

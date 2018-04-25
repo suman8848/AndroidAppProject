@@ -6,16 +6,20 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Krishna on 4/25/2018.
  */
-public class NotificationRequest{
-    @SerializedName("deviceToken")
-    @Expose
-    private String deviceToken;
+public class NotificationRequest {
+  private String title;
+  private String body;
 
-    public String getDeviceToken() {
-        return deviceToken;
+    public NotificationRequest(String title, String body) {
+        this.title = title;
+        this.body = body;
     }
 
-    public void setDeviceToken(String deviceToken) {
-        this.deviceToken = deviceToken;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
     }
 }

@@ -3,6 +3,7 @@ package com.example.sumankhatiwada.vehiclebazzar.ui.activities;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.AboutUsFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.HomeFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.NotificationFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.ProfileFragment;
+import com.example.sumankhatiwada.vehiclebazzar.utils.FcmMessagingService;
 
 import org.w3c.dom.Text;
 
@@ -61,6 +63,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
     private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
+    public static final String BUNDLE_NOTIFICATION_TITLE="bundleNotificationtitle";
+    public static final String BUNDLE_NOTIFICATION_BODY="bundleNotificationbody";
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
@@ -88,7 +92,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Inject
     DashBoardPresenter dashBoardPresenter;
     RegisterRequestAndProfileResponses responses;
-
+    SharedPreferences sharedPreferences;
 
     @Override
     protected int getContentView() {
@@ -109,6 +113,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         setToolbar();
         dashBoardPresenter.getMyAccount();
        int check= getIntent().getIntExtra("checker",0);
+        sharedPreferences =getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
+
        if(check==1){
            bottomNavigationView.setSelectedItemId(R.id.action_Notification);
            setDesiredFragment(NotificationFragment.newInstance());
@@ -256,6 +262,12 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         } else if (fragment instanceof NotificationFragment) {
             title = getString(R.string.notification);
             floatingActionButton.setVisibility(View.GONE);
+            String notificationTitle =sharedPreferences.getString(FcmMessagingService.NOTIFICATION_TITLE,"");
+            String notificationBody =sharedPreferences.getString(FcmMessagingService.NOTIFICATION_BODY,"");
+            Bundle bun = new Bundle();
+            bun.putString(BUNDLE_NOTIFICATION_TITLE,notificationTitle);
+            bun.putString(BUNDLE_NOTIFICATION_BODY,notificationBody);
+            fragment.setArguments(bun);
             startFragment(fragment);
         }
 

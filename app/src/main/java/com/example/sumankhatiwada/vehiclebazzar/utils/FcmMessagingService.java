@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
@@ -13,13 +14,16 @@ import com.example.sumankhatiwada.vehiclebazzar.ui.activities.DashBoardActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Created by Krishna on 4/23/2018.
  */
 public class FcmMessagingService  extends FirebaseMessagingService {
-
+        public static final String NOTIFICATION_TITLE = "notificationtitle";
+        public static final String NOTIFICATION_BODY = "notificationbody";
     //@TargetApi(Build.VERSION_CODES.KITKAT)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -27,6 +31,12 @@ public class FcmMessagingService  extends FirebaseMessagingService {
 
         String title = Objects.requireNonNull(remoteMessage.getNotification()).getTitle();
         String message = remoteMessage.getNotification().getBody();
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(String.valueOf(R.string.FCM_PREF), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(NOTIFICATION_TITLE,title);
+        editor.putString(NOTIFICATION_BODY,message );
+        editor.apply();
 
         Intent intent = new Intent(this, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

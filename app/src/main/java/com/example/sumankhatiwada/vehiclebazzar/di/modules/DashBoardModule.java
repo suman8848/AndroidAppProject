@@ -65,9 +65,4 @@ public class DashBoardModule {
         return new UserModel();
     }
 
-    @PerActivity
-    @Provides
-    NotificationRequest providesNotificationRequest() {
-        return new NotificationRequest();
-    }
 }
