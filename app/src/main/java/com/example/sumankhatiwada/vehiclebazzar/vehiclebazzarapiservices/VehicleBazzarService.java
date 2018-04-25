@@ -1,15 +1,15 @@
 package com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices;
 
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentReq;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.LoginAndRegisterResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.TokenDTO;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -45,4 +46,6 @@ public interface VehicleBazzarService {
     @Headers({"Content-Type: application/json"})
     Observable<MessageDTO> savePost(@Body TokenDTO body);
 
+    @POST
+    Observable<CarPostResponses> comment(@Url String fullUrl, @Body CommentReq comment, @Header("x-access-token") String token, @Header("Content-Type") String contentType);
 }

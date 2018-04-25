@@ -25,6 +25,10 @@ public class Comment implements Parcelable {
     @Expose
     private String user;
 
+
+    public Comment() {
+    }
+
     protected Comment(Parcel in) {
         id = in.readString();
         body = in.readString();
