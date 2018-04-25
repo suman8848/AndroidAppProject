@@ -175,44 +175,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     }
 
     private void openDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.post_update);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
 
-        img_camera = (ImageView) dialog.findViewById(R.id.post_image_camera);
-        img_gallery = (ImageView) dialog.findViewById(R.id.post_image_browse);
-        img = (ImageView) dialog.findViewById(R.id.post_image);
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            img_camera.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-        }
-
-        img_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
-        });
-
-
-        img_gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                // Activity Action for the intent : Pick an item from the data, returning what was selected.
-                i.setAction(Intent.ACTION_PICK);
-                i.setType("image/*");
-                // Start the Gallery Intent activity with the request_code 2
-                startActivityForResult(i,2);
-            }
-        });
-
-        dialog.show();
     }
 
     // To perform post Activities write your logic in the onActivityResult(), the user actions are determined based on the requestCode
