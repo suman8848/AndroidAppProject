@@ -108,7 +108,7 @@ public class CarPostResponses implements Parcelable {
         this.boatImage = boatImage;
     }
 
-    public  List<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 

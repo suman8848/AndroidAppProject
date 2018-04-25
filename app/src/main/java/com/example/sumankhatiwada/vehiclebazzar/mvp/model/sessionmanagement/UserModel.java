@@ -10,6 +10,7 @@ public class UserModel implements Parcelable {
 
     private boolean auth;
     private String token;
+    private String name;
 
     public boolean isAuth() {
         return auth;
@@ -25,6 +26,14 @@ public class UserModel implements Parcelable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
@@ -47,6 +56,7 @@ public class UserModel implements Parcelable {
     private UserModel(Parcel parcel) {
         auth = parcel.readByte() != 0; //myBoolean == true if byte != 0
         token = parcel.readString();
+        name = parcel.readString();
 
 
     }
@@ -56,6 +66,7 @@ public class UserModel implements Parcelable {
     public void writeToParcel(Parcel parcel, int flag) {
         parcel.writeByte((byte) (auth ? 1 : 0));  //if myBoolean == true, byte == 1
         parcel.writeString(token);
+        parcel.writeString(name);
 
     }
 

@@ -29,6 +29,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -94,9 +96,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
+    UserModel userModel;
     @Inject
     DashBoardPresenter dashBoardPresenter;
     RegisterRequestAndProfileResponses responses;
+    CarPostResponses carPostResponses;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -117,6 +121,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         super.onViewReady(savedInstanceState, intent);
         setToolbar();
         dashBoardPresenter.getMyAccount();
+       userModel = intent.getParcelableExtra(UserModel.class.getSimpleName());
+
        int check= getIntent().getIntExtra("checker",0);
         sharedPreferences =getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
 
@@ -164,7 +170,6 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
            });
        }
 
-        UserModel userModel = dashBoardPresenter.getUserModelSession();
 
 //        textViewWelcomeEmail.setText(userModel.get);
 
@@ -178,12 +183,19 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     private void openDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.post_update);
+        dialog.setContentView(R.layout.post_update_new);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
-
+        dialog.show();
         img_camera = (ImageView) dialog.findViewById(R.id.post_image_camera);
         img_gallery = (ImageView) dialog.findViewById(R.id.post_image_browse);
-        img = (ImageView) dialog.findViewById(R.id.post_image);
+        img = (ImageView) dialog.findViewById(R.id.imageview_from_gallery);
+        Button buttonAddPost = dialog.findViewById(R.id.addnewCarBttn);
+        final EditText etCarName = dialog.findViewById(R.id.et_name);
+        final EditText etCarMakeYear = dialog.findViewById(R.id.etMakeYear);
+        final EditText etModel = dialog.findViewById(R.id.et_car_model);
+        final EditText etColor = dialog.findViewById(R.id.et_car_color);
+        final EditText etCarMileage = dialog.findViewById(R.id.et_car_mileage);
+        final EditText etPrice = dialog.findViewById(R.id.et_car_price);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             img_camera.setEnabled(false);
@@ -213,7 +225,24 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
             }
         });
 
-        dialog.show();
+        buttonAddPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String carName =etCarName.getText().toString();
+                String carMakeYear =etCarMakeYear.getText().toString();
+                String carModel =etModel.getText().toString();
+                String carColor =etColor.getText().toString();
+                String carMileage =etCarMileage.getText().toString();
+                String carPrice =etPrice.getText().toString();
+
+                dashBoardPresenter.sendPost(carName,carMakeYear,carModel,carColor,carMileage,carPrice);
+
+            }
+        });
+
+
+
     }
 
     // To perform post Activities write your logic in the onActivityResult(), the user actions are determined based on the requestCode
@@ -321,13 +350,15 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         showToast(this, message);
 
     }
-
     @Override
     public void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
         responses = registerRequestAndProfileResponses;
+     String userName=  responses.getFirstname() + " " + responses.getLastname();
         textViewWelcomeEmail.setText(responses.getEmail());
-        textViewWelcomeName.setText(responses.getFirstname() + " " + responses.getLastname());
+        textViewWelcomeName.setText(userName);
+
     }
+
 
     @Override
     public void onNotifiedSuccess(MessageDTO messageDTO) {

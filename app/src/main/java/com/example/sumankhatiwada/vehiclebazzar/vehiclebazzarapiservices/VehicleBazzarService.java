@@ -1,5 +1,6 @@
 package com.example.sumankhatiwada.vehiclebazzar.vehiclebazzarapiservices;
 
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostRequest;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentReq;
@@ -39,8 +40,6 @@ public interface VehicleBazzarService {
     @GET("/api/auth/boat")
     Observable<List<CarPostResponses>> getAllPost(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
-    @POST("api/auth/boat/5a7a19d159b0d358b0bbd862/comment")
-    Observable<List<CarPostResponses>> getComment(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
     @POST("/api/auth/notify")
     @Headers({"Content-Type: application/json"})
@@ -48,4 +47,7 @@ public interface VehicleBazzarService {
 
     @POST
     Observable<CarPostResponses> comment(@Url String fullUrl, @Body CommentReq comment, @Header("x-access-token") String token, @Header("Content-Type") String contentType);
+
+    @POST("/api/auth/boat")
+    Observable<CarPostRequest> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
 }
