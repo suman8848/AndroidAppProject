@@ -91,31 +91,47 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="2dp"
                         android:paddingTop="2dp" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/cardview_comment_by"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:id="@+id/carview_comment_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+                    </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <EditText
-                        android:layout_weight="0.5"
                         android:id="@+id/et_comment"
+                        android:layout_weight="0.4"
+                        android:hint="@string/app_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:focusableInTouchMode="true"
-                        android:focusedByDefault="false"
-                        android:gravity="left"
-                        android:hint="Comment"
-                        android:padding="@dimen/dp_10" />
-                        <Button
-                            android:id="@+id/btn_comment"
-                            android:layout_margin="@dimen/dp_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Comment"/>
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/btn_send_comment"
+                        android:text="Comment"
+                        android:layout_weight="0.9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
+
             </android.support.v7.widget.CardView>
+
 
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

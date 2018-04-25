@@ -21,4 +21,7 @@
     <string name="aboutus">About Us</string>
     <string name="notification">Notification</string>
     <string name="add_post">Add Your Post</string>
+
+    <string name="FCM_PREF">com.example.sumankhatiwada.vehiclebazzar.fcm_pref</string>
+    <string name="FCM_TOKEN">com.example.sumankhatiwada.vehiclebazzar.fcm_token</string>
 </resources>

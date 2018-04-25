@@ -3,6 +3,7 @@ package com.example.sumankhatiwada.vehiclebazzar.ui.activities;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ import com.example.sumankhatiwada.vehiclebazzar.R;
 import com.example.sumankhatiwada.vehiclebazzar.base.BaseActivity;
 import com.example.sumankhatiwada.vehiclebazzar.di.components.DaggerDashBoardComponent;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.DashBoardPresenter;
@@ -44,6 +46,7 @@ import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.AboutUsFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.HomeFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.NotificationFragment;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.ProfileFragment;
+import com.example.sumankhatiwada.vehiclebazzar.utils.FcmMessagingService;
 
 import org.w3c.dom.Text;
 
@@ -63,6 +66,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
     private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
+    public static final String BUNDLE_NOTIFICATION_TITLE="bundleNotificationtitle";
+    public static final String BUNDLE_NOTIFICATION_BODY="bundleNotificationbody";
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
     ImageView img,img_camera, img_gallery;
@@ -91,7 +96,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Inject
     DashBoardPresenter dashBoardPresenter;
     RegisterRequestAndProfileResponses responses;
-
+    SharedPreferences sharedPreferences;
 
     @Override
     protected int getContentView() {
@@ -111,43 +116,52 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         super.onViewReady(savedInstanceState, intent);
         setToolbar();
         dashBoardPresenter.getMyAccount();
-        setDesiredFragment(HomeFragment.newInstance());
-        mAppBarLayout.addOnOffsetChangedListener(this);
-        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+       int check= getIntent().getIntExtra("checker",0);
+        sharedPreferences =getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
 
-                switch (item.getItemId()) {
-                    case R.id.action_home:
+       if(check==1){
+           bottomNavigationView.setSelectedItemId(R.id.action_Notification);
+           setDesiredFragment(NotificationFragment.newInstance());
+
+       }else {
+           setDesiredFragment(HomeFragment.newInstance());
+           mAppBarLayout.addOnOffsetChangedListener(this);
+           startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+           AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+           bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+               @Override
+               public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                   switch (item.getItemId()) {
+                       case R.id.action_home:
 //                        showToast(DashBoardActivity.this, "Home");
-                        setDesiredFragment(HomeFragment.newInstance());
-                        break;
+                           setDesiredFragment(HomeFragment.newInstance());
+                           break;
 
-                    case R.id.action_profile:
-                        showToast(DashBoardActivity.this, "Profile");
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(ProfileFragment.PROFILE_KEY, responses);
-                        Fragment fragment = ProfileFragment.newInstance(responses);
-                        fragment.setArguments(bundle);
-                        setDesiredFragment(fragment);
-                        break;
+                       case R.id.action_profile:
+                           showToast(DashBoardActivity.this, "Profile");
+                           Bundle bundle = new Bundle();
+                           bundle.putSerializable(ProfileFragment.PROFILE_KEY, responses);
+                           Fragment fragment = ProfileFragment.newInstance(responses);
+                           fragment.setArguments(bundle);
+                           setDesiredFragment(fragment);
+                           break;
 
-                    case R.id.action_aboutUs:
-                        showToast(DashBoardActivity.this, "AboutUs");
-                        setDesiredFragment(AboutUsFragment.newInstance());
-                        break;
+                       case R.id.action_aboutUs:
+                           showToast(DashBoardActivity.this, "AboutUs");
+                           setDesiredFragment(AboutUsFragment.newInstance());
+                           break;
 
-                    case R.id.action_Notification:
-                        showToast(DashBoardActivity.this, "Notification");
-                        setDesiredFragment(NotificationFragment.newInstance());
-                        break;
+                       case R.id.action_Notification:
+                           showToast(DashBoardActivity.this, "Notification");
+                           setDesiredFragment(NotificationFragment.newInstance());
+                           break;
 
-                }
-                return true;
-            }
-        });
+                   }
+                   return true;
+               }
+           });
+       }
 
         UserModel userModel = dashBoardPresenter.getUserModelSession();
 
@@ -243,6 +257,12 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         } else if (fragment instanceof NotificationFragment) {
             title = getString(R.string.notification);
             floatingActionButton.setVisibility(View.GONE);
+            String notificationTitle =sharedPreferences.getString(FcmMessagingService.NOTIFICATION_TITLE,"");
+            String notificationBody =sharedPreferences.getString(FcmMessagingService.NOTIFICATION_BODY,"");
+            Bundle bun = new Bundle();
+            bun.putString(BUNDLE_NOTIFICATION_TITLE,notificationTitle);
+            bun.putString(BUNDLE_NOTIFICATION_BODY,notificationBody);
+            fragment.setArguments(bun);
             startFragment(fragment);
         }
 
@@ -298,6 +318,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Override
     public void onShowToast(String message) {
         showToast(this, message);
+
     }
 
     @Override
@@ -305,6 +326,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         responses = registerRequestAndProfileResponses;
         textViewWelcomeEmail.setText(responses.getEmail());
         textViewWelcomeName.setText(responses.getFirstname() + " " + responses.getLastname());
+    }
+
+    @Override
+    public void onNotifiedSuccess(MessageDTO messageDTO) {
+        //DO Nothing
     }
 
     @Override

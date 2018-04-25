@@ -1,5 +1,6 @@
 package com.example.sumankhatiwada.vehiclebazzar.mvp.view;
 
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 
 /**
@@ -13,5 +14,6 @@ public interface DashBoardView extends BaseView {
     void onHideDialog();
     void onShowToast(String message);
     void onViewSuccess(RegisterRequestAndProfileResponses registerRequestAndProfileResponses);
+    void onNotifiedSuccess(MessageDTO messageDTO);
 
 }
