@@ -1,6 +1,8 @@
 package com.example.sumankhatiwada.vehiclebazzar.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -145,6 +147,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     loginUsernameEditText.setError("Please enter the valid email address", null);
                     animation(R.id.editText_UserName);
                 } else {
+
+
                     mLoginPresenter.getLoginResponse(username, password);
                 }
 
@@ -182,6 +186,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void onLoginSuccess(UserModel userModel) {
+        SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
+        String fcmToken =sharedPreferences.getString(String.valueOf(R.string.FCM_TOKEN),"");
+        mLoginPresenter.setFcm(userModel,fcmToken);
         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
         intent.putExtra(UserModel.class.getSimpleName(), userModel);
         startActivity(intent);

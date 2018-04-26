@@ -1,6 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.FcmReqRes;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.LoginView;

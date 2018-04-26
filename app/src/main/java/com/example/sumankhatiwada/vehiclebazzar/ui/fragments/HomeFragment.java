@@ -64,19 +64,22 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @Override
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         homeFragmentPresenter.getPostOfCars();
+
         carList = new ArrayList<CarPostResponses>();
+
+
         userModel = homeFragmentPresenter.getUserModelSession();
     }
 
     @Override
     public void onLoadPostSuccess(List<CarPostResponses> carPostResponses) {
         final String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-        Log.e("TeSt", carPostResponses.get(0).getName());
-        Log.e("TeSting ", carPostResponses.get(carPostResponses.size()-1).getComments().get(0).getUser());
+//        Log.e("TeSt", carPostResponses.get(0).getName());
+//        Log.e("TeSting ", carPostResponses.get(carPostResponses.size() - 1).getComments().get(0).getUser());
 
         carList = carPostResponses;
+        System.out.println("CARLIST::::.....>>>>>--->>"+carList.size());
         Collections.sort(carList, new Comparator<CarPostResponses>() {
             @Override
             public int compare(CarPostResponses carPostResponses, CarPostResponses t1) {
@@ -93,25 +96,28 @@ public class HomeFragment extends BaseFragment implements HomeView {
                 return date2.compareTo(date1);
             }
         });
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new RecyclerViewAdapter(getActivity(), carList, new RecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarPostResponses item) {
                 ArrayList<Comment> comments = new ArrayList<>();
-                if(item.getComments().size()>0) {
-                    for(int i = 0 ; i<item.getComments().size();i++) {
+                if (item.getComments().size() > 0) {
+                    for (int i = 0; i < item.getComments().size(); i++) {
                         comments.add(item.getComments().get(i));
                     }
                 }
                 startActivity(new Intent(getActivity(), CarDetailActivity.class)
-                        .putExtra("usermodels",userModel)
+                        .putExtra("usermodels", userModel)
                         .putExtra(CarDetailActivity.GET_KEY_FOR_EACH_CAR, item)
-                        .putParcelableArrayListExtra("comments",comments)
+                        .putParcelableArrayListExtra("comments", comments)
                 );
             }
         });
         adapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setNestedScrollingEnabled(false);
+        System.out.println("ADAPTERRR::::::>>>>>>>>>>>>>><<<<<<<<<<");
 
     }
 

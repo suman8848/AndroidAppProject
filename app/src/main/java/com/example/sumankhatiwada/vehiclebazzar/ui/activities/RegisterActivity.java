@@ -1,6 +1,7 @@
 package com.example.sumankhatiwada.vehiclebazzar.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.text.Editable;
@@ -254,8 +255,11 @@ public class RegisterActivity extends BaseActivity implements RegisterView {
 
     @Override
     public void onRegisterSuccess(UserModel userModel) {
-        Intent intent = new Intent(this, DashBoardActivity.class);
-        intent.putExtra(UserModel.class.getSimpleName(), userModel);
+        SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
+        String fcmToken =sharedPreferences.getString(String.valueOf(R.string.FCM_TOKEN),"");
+        registerPresenter.setFcm(userModel,fcmToken);
+        Intent intent = new Intent(this, LoginActivity.class);
+//        intent.putExtra(UserModel.class.getSimpleName(), userModel);
         startActivity(intent);
         finish();
     }

@@ -4,6 +4,7 @@ import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostReques
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentReq;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.FcmReqRes;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.LoginAndRegisterResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
@@ -18,6 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -37,7 +39,7 @@ public interface VehicleBazzarService {
     @GET("/api/auth/me")
     Observable<RegisterRequestAndProfileResponses> getMyProfile(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
-    @GET("/api/auth/boat")
+    @GET("/api/auth/boat?limit=9")
     Observable<List<CarPostResponses>> getAllPost(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
 
@@ -50,4 +52,7 @@ public interface VehicleBazzarService {
 
     @POST("/api/auth/boat")
     Observable<CarPostRequest> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
+
+    @PUT("/api/auth/fcmtoken")
+    Observable<FcmReqRes> sendFcm(@Header("x-access-token") String token, @Header("Content-Type") String contentType, @Body FcmReqRes fcmReqRes);
 }
