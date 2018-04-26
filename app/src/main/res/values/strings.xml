@@ -24,4 +24,23 @@
 
     <string name="FCM_PREF">com.example.sumankhatiwada.vehiclebazzar.fcm_pref</string>
     <string name="FCM_TOKEN">com.example.sumankhatiwada.vehiclebazzar.fcm_token</string>
+
+    <string name="about_us">
+
+        <font size ="16"><b>About</b></font> \n \n
+
+        We realize that you have lots of choices when leasing or buying an automobile and our desire is to ensure you
+        have the best car buying experience. Therefore, considering the customer satisfaction to be the highest priority,
+        Vehicle Bazaar, provides a platform to facilitate buyers and sellers to communicate more easily, to make the
+        transaction. With the details about the vehicles that are available for sell, buyers can easily navigate through
+        this app and buy vehicles from the specific sellers.
+        \n \n
+        The app comes up with lots of features, like the users can safely login and navigate through user-friendly
+        dashboard, to get access of various features like home with featured vehicle, updating profile, notification services,
+        so the user can be notified about the buy and sell.
+        \n \n
+        There are lots of future enhancements that are to be implemented, to make the app experience better for the users
+        in the days to come. Hope you enjoy the application and support us.
+
+    </string>
 </resources>
