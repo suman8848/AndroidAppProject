@@ -180,9 +180,9 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         carPostRequest.setDescription("Hello Descriptions");
         Address address = new Address("fairfied", "test", "test", 123);
         carPostRequest.setAddress(address);
-        carPostRequest.setCategories("Sports");
+        carPostRequest.setCategories("Cars");
         carPostRequest.setStatus(0);
-        String imgArr[] = {"sdfghjk"};
+        String imgArr[] = {"http://wall.wallrage.com/wp-content/uploads/4k-Car-Images.jpg"};
         carPostRequest.setBoatImage(imgArr);
         System.out.println("TOKEN::::::>>>" + userModel.getToken());
         Observable<CarPostResponses> carPostRequestResponsesObservable = vehicleBazzarService.addPost(userModel.getToken(), "application/json", carPostRequest);
@@ -201,6 +201,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
             public void onNext(CarPostResponses carPostResponses) {
                 System.out.println("CAR----->>>" + carPostResponses.getId());
 
+                getView().onShowToast("Car Successfully added");
                 /*Bitmap thumbnail = (Bitmap) data.getExtras().get("data");*/
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -247,6 +248,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
                     public void onError(Throwable e) {
                         getView().onHideDialog();
                         System.out.println("ADDING ERROR" + e.getMessage());
+                        getView().onAddPostSuccess();
                     }
 
                     @Override

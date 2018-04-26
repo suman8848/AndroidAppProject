@@ -206,6 +206,8 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
     @Override
     public void onAddPostSuccess() {
         //donothing
+//        onBackPressed();
+        finish();
     }
 
     @Override
