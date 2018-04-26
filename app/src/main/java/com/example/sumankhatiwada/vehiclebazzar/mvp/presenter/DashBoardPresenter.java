@@ -177,7 +177,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         carPostRequest.setMileage(carMileage);
         carPostRequest.setPrice(Integer.parseInt(carPrice));
         carPostRequest.setModel(carModel);
-        carPostRequest.setDescription("Hello Descriptions");
+        carPostRequest.setDescription("Descriptions:"+ carName + "\n"+ "Make Year:" + carMakeYear + "\nCar Mileage: "+ carMileage + "\n Price " + carPrice+ "\n Car Model: " + carModel);
         Address address = new Address("fairfied", "test", "test", 123);
         carPostRequest.setAddress(address);
         carPostRequest.setCategories("Cars");
