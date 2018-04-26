@@ -203,6 +203,11 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
     }
 
     @Override
+    public void onAddPostSuccess() {
+        //donothing
+    }
+
+    @Override
     protected void resolveDaggerDependency() {
         super.resolveDaggerDependency();
         DaggerDashBoardComponent.builder()

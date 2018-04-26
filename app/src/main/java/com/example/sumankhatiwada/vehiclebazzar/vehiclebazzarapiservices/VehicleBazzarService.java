@@ -55,15 +55,15 @@ public interface VehicleBazzarService {
     Observable<CarPostResponses> comment(@Url String fullUrl, @Body CommentReq comment, @Header("x-access-token") String token, @Header("Content-Type") String contentType);
 
     @Multipart
-    @Headers({"Content-Type: multipart/form-data"})
     @POST
-    Observable<CarPostResponses> sendImage(@Url String fullUrl,
+    Observable<FcmReqRes> sendImage(@Url String fullUrl,
                                            @Part MultipartBody.Part filePart,
-                                           @Header("x-access-token") String token);
+                                           @Header("x-access-token") String token,
+                                            @Header("Content-Type") String content);
 
 
     @POST("/api/auth/boat")
-    Observable<CarPostRequest> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
+    Observable<CarPostResponses> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
 
     @PUT("/api/auth/fcmtoken")
     Observable<FcmReqRes> sendFcm(@Header("x-access-token") String token, @Header("Content-Type") String contentType, @Body FcmReqRes fcmReqRes);

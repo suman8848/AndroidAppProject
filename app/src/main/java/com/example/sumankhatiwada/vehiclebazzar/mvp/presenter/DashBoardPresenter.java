@@ -10,6 +10,7 @@ import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostReques
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentReq;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.FcmReqRes;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.MessageDTO;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.TokenDTO;
@@ -66,6 +67,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         msharedPreferenceManager.initiateSharedPreferences(mContext);
         return msharedPreferenceManager.getUserModelFromPreferences();
     }
+
     public void saveUserModelSession(UserModel mUserModel) {
         msharedPreferenceManager.initiateSharedPreferences(mContext);
         msharedPreferenceManager.saveUserModel(mUserModel);
@@ -95,14 +97,14 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
             @Override
             public void onNext(RegisterRequestAndProfileResponses registerRequestAndProfileResponses) {
-                userModel.setName(registerRequestAndProfileResponses.getFirstname() + " "+ registerRequestAndProfileResponses.getLastname());
+                userModel.setName(registerRequestAndProfileResponses.getFirstname() + " " + registerRequestAndProfileResponses.getLastname());
                 saveUserModelSession(userModel);
                 getView().onViewSuccess(registerRequestAndProfileResponses);
             }
         });
     }
 
-    public void sendNotification(String value,String token) {
+    public void sendNotification(String value, String token) {
         getView().onShowDialog("Loading....");
         userModel = getUserModelSession();
         TokenDTO tokenDTO = new TokenDTO(token);
@@ -116,7 +118,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
             @Override
             public void onError(Throwable e) {
                 getView().onShowToast(e.getMessage());
-                System.out.println("ERRROORRRR__------------->"+e.getMessage());
+                System.out.println("ERRROORRRR__------------->" + e.getMessage());
                 getView().onHideDialog();
             }
 
@@ -128,9 +130,9 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
     }
 
 
-    public void comment(String id,String commentBody) {
+    public void comment(String id, String commentBody) {
         getView().onShowDialog("Posting Comment");
-        System.out.println("ID------->"+ id);
+        System.out.println("ID------->" + id);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         CommentObject co = new CommentObject();
@@ -139,9 +141,9 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         co.setUser(userModel.getName());
         CommentReq commentReq = new CommentReq();
         commentReq.setComments(co);
-        String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/"+id+"/comment";
-        System.out.println("URL---->"+fullUrl+":::::"+ comment +"9999>"+userModel.getToken());
-        Observable<CarPostResponses> setComment = vehicleBazzarService.comment(fullUrl,commentReq,userModel.getToken(),"application/json");
+        String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/" + id + "/comment";
+        System.out.println("URL---->" + fullUrl + ":::::" + comment + "9999>" + userModel.getToken());
+        Observable<CarPostResponses> setComment = vehicleBazzarService.comment(fullUrl, commentReq, userModel.getToken(), "application/json");
         subscribe(setComment, new Observer<CarPostResponses>() {
             @Override
             public void onCompleted() {
@@ -151,14 +153,14 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
             @Override
             public void onError(Throwable e) {
                 getView().onHideDialog();
-                System.out.println("FORBIDDEN"+ e.getMessage());
+                System.out.println("FORBIDDEN" + e.getMessage());
                 getView().onShowToast(e.getMessage());
             }
 
             @Override
             public void onNext(CarPostResponses carPostResponses) {
                 getView().onHideDialog();
-               // System.out.println("RESPONSECARE------->"+carPostResponses.getComments().get(0).getBody());
+                // System.out.println("RESPONSECARE------->"+carPostResponses.getComments().get(0).getBody());
                 getView().onCommentSuccess();
             }
         });
@@ -167,7 +169,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
     public void sendPost(String carName, String carMakeYear, String carModel, String carColor, String carMileage, String carPrice, final Bitmap bitmap) {
 
         getView().onShowDialog("Adding post");
-
+        userModel = getUserModelSession();
         carPostRequest.setName(carName);
         carPostRequest.setMake(carMakeYear);
         carPostRequest.setColor(carColor);
@@ -179,9 +181,10 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         carPostRequest.setAddress(address);
         carPostRequest.setCategories("Sports");
         carPostRequest.setStatus(0);
-        String imgArr [] ={"sdfghjk"};
+        String imgArr[] = {"sdfghjk"};
         carPostRequest.setBoatImage(imgArr);
-        final Observable<CarPostResponses> carPostRequestResponsesObservable = vehicleBazzarService.addPost(userModel.getToken(), "application/json", carPostRequest);
+        System.out.println("TOKEN::::::>>>" + userModel.getToken());
+        Observable<CarPostResponses> carPostRequestResponsesObservable = vehicleBazzarService.addPost(userModel.getToken(), "application/json", carPostRequest);
         subscribe(carPostRequestResponsesObservable, new Observer<CarPostResponses>() {
             @Override
             public void onCompleted() {
@@ -190,18 +193,18 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
             @Override
             public void onError(Throwable e) {
-                System.out.println("ADDING ERROR"+ e.getMessage());
+                System.out.println("ADDING ERROR" + e.getMessage());
             }
 
             @Override
             public void onNext(CarPostResponses carPostResponses) {
-                System.out.println("CAR----->>>"+ carPostResponses.getId());
+                System.out.println("CAR----->>>" + carPostResponses.getId());
 
                 /*Bitmap thumbnail = (Bitmap) data.getExtras().get("data");*/
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
                 File destination = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES),"temp.jpg");
+                        Environment.DIRECTORY_PICTURES), "temp.jpg");
                 FileOutputStream fo;
                 try {
                     fo = new FileOutputStream(destination);
@@ -211,24 +214,29 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
                     e.printStackTrace();
                 }
 
-                System.out.println(destination.getAbsolutePath());
+                System.out.println("PATH____" + destination.getAbsolutePath());
 
                 /*RequestBody.create(MediaType.parse("multipart/form-data"),destination.getAbsolutePath()),*/
 
-                String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/"+carPostResponses.getId()+"/uploadImage";
+                String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/" + carPostResponses.getId() + "/uploadImage";
 
                 File file = new File(destination.getAbsolutePath());
 
-                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"),file);
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("image", file.getName(), requestFile);
                 //MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
-                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file",
-                        file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+//                MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",
+//                        destination.getAbsolutePath(), requestFile);
 
-                Observable<CarPostResponses> sendImage = vehicleBazzarService.sendImage(
+               // System.out.println("FULLURLS::::>>" + fullUrl + "USR::::>>>" + userModel.getToken() + "filepart" + filePart);
+                Observable<FcmReqRes> sendImage = vehicleBazzarService.sendImage(
                         fullUrl,
-                        filePart,
-                        userModel.getToken());
-                subscribe(sendImage, new Observer<CarPostResponses>() {
+                        body,
+                        userModel.getToken(), "multipart/form-data");
+                subscribe(sendImage, new Observer<FcmReqRes>() {
                     @Override
                     public void onCompleted() {
                         System.out.println("Completed");
@@ -236,15 +244,17 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        System.out.println("ADDING ERROR"+ e.getMessage());
+                        getView().onHideDialog();
+                        System.out.println("ADDING ERROR" + e.getMessage());
                     }
 
                     @Override
-                    public void onNext(CarPostResponses carPostResponses) {
+                    public void onNext(FcmReqRes carPostResponses) {
                         System.out.println("On next");
+                        System.out.println("Post success" + carPostResponses.getResult());
                     }
                 });
-               // new uploadFileToServerTask().execute();
+                // new uploadFileToServerTask().execute();
 
             }
         });

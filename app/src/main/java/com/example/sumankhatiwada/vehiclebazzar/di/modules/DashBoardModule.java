@@ -2,7 +2,6 @@ package com.example.sumankhatiwada.vehiclebazzar.di.modules;
 
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostRequest;
-import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CarPostResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.CommentObject;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.UserModel;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.view.DashBoardView;

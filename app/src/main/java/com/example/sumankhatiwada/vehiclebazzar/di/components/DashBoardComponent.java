@@ -4,6 +4,7 @@ import com.example.sumankhatiwada.vehiclebazzar.di.modules.DashBoardModule;
 import com.example.sumankhatiwada.vehiclebazzar.di.modules.LoginAndRegisterModule;
 import com.example.sumankhatiwada.vehiclebazzar.di.scope.PerActivity;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.presenter.ProfileFragmentPresenter;
+import com.example.sumankhatiwada.vehiclebazzar.ui.activities.AddPostActivity;
 import com.example.sumankhatiwada.vehiclebazzar.ui.activities.CarDetailActivity;
 import com.example.sumankhatiwada.vehiclebazzar.ui.activities.DashBoardActivity;
 import com.example.sumankhatiwada.vehiclebazzar.ui.fragments.HomeFragment;
@@ -22,4 +23,5 @@ public interface DashBoardComponent {
     void inject(ProfileFragment profileFragment);
     void inject(HomeFragment homeFragment);
     void inject(CarDetailActivity carDetailActivity);
+    void inject(AddPostActivity addPostActivity);
 }
