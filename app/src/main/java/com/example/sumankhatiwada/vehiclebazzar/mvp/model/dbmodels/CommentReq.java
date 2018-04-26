@@ -20,4 +20,11 @@ public class CommentReq {
     public void setComments(CommentObject comments) {
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "CommentReq{" +
+                "comments=" + comments +
+                '}';
+    }
 }
