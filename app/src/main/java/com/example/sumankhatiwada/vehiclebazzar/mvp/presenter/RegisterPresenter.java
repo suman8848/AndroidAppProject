@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.sumankhatiwada.vehiclebazzar.base.BasePresenter;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.Address;
+import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.FcmReqRes;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.LoginAndRegisterResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.RegisterRequestAndProfileResponses;
 import com.example.sumankhatiwada.vehiclebazzar.mvp.model.sessionmanagement.SharedPreferenceManager;
@@ -67,7 +68,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             public void onNext(LoginAndRegisterResponses registerResponses) {
                 userModel.setToken(registerResponses.getToken());
                 userModel.setAuth(registerResponses.getAuth());
-                saveUserModelSession(userModel);
+//                saveUserModelSession(userModel);
                 getView().onRegisterSuccess(userModel);
                 getView().onShowToast("Registered Successfully");
                 Log.e("helloregister", registerResponses.getToken());
@@ -78,5 +79,30 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     private void saveUserModelSession(UserModel mUserModel) {
         msharedPreferenceManager.initiateSharedPreferences(mContext);
         msharedPreferenceManager.saveUserModel(mUserModel);
+    }
+
+    public void setFcm(UserModel userModel, String fcm) {
+        FcmReqRes fcmReqRes = new FcmReqRes();
+        fcmReqRes.setFcmToken(fcm);
+        Observable<FcmReqRes> loginResponsesObservable = mRegisterApiServices.sendFcm(userModel.getToken(), "application/json", fcmReqRes);
+        subscribe(loginResponsesObservable, new Observer<FcmReqRes>() {
+            @Override
+            public void onCompleted() {
+                getView().onHideDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("HELLO"+e.getMessage());
+                getView().onShowToast(e.getMessage());
+
+            }
+
+            @Override
+            public void onNext(FcmReqRes fcmReqRes) {
+                System.out.println("RESULT------>" + fcmReqRes.getResult());
+            }
+        });
+
     }
 }
