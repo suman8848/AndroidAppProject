@@ -262,9 +262,21 @@ public class AddPostActivity extends BaseActivity implements DashBoardView {
         else if(requestCode==2 && resultCode == RESULT_OK){ // For Clicking Gallery button
             // Set the selected image from the device image gallery to the ImageView component
 //            String path = getPath(data.getData())
-            Bundle bundle = data.getExtras();
-            bitmap = (Bitmap) bundle.get("data");
-            img.setImageURI(data.getData());
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+//            Bundle extras = data.getExtras();
+//            bitmap = (Bitmap) extras.get("data");
+//            img.setImageURI(data.getData());
         }
     }
 

@@ -203,61 +203,61 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
                 getView().onShowToast("Car Successfully added");
                 /*Bitmap thumbnail = (Bitmap) data.getExtras().get("data");*/
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                File destination = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES), "temp.jpg");
-                FileOutputStream fo;
-                try {
-                    fo = new FileOutputStream(destination);
-                    fo.write(bytes.toByteArray());
-                    fo.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("PATH____" + destination.getAbsolutePath());
-
-                /*RequestBody.create(MediaType.parse("multipart/form-data"),destination.getAbsolutePath()),*/
-
-                String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/" + carPostResponses.getId() + "/uploadImage";
-
-                File file = new File(destination.getAbsolutePath());
-
-                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-                RequestBody requestFile =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part body =
-                        MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-                //MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
-//                MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",
-//                        destination.getAbsolutePath(), requestFile);
-
-               // System.out.println("FULLURLS::::>>" + fullUrl + "USR::::>>>" + userModel.getToken() + "filepart" + filePart);
-                Observable<FcmReqRes> sendImage = vehicleBazzarService.sendImage(
-                        fullUrl,
-                        body,
-                        userModel.getToken(), "multipart/form-data");
-                subscribe(sendImage, new Observer<FcmReqRes>() {
-                    @Override
-                    public void onCompleted() {
-                        System.out.println("Completed");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        getView().onHideDialog();
-                        System.out.println("ADDING ERROR" + e.getMessage());
-                        getView().onAddPostSuccess();
-                    }
-
-                    @Override
-                    public void onNext(FcmReqRes carPostResponses) {
-                        System.out.println("On next");
-                        System.out.println("Post success" + carPostResponses.getResult());
-                    }
-                });
-                // new uploadFileToServerTask().execute();
+//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+//                File destination = new File(Environment.getExternalStoragePublicDirectory(
+//                        Environment.DIRECTORY_PICTURES), "temp.jpg");
+//                FileOutputStream fo;
+//                try {
+//                    fo = new FileOutputStream(destination);
+//                    fo.write(bytes.toByteArray());
+//                    fo.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                System.out.println("PATH____" + destination.getAbsolutePath());
+//
+//                /*RequestBody.create(MediaType.parse("multipart/form-data"),destination.getAbsolutePath()),*/
+//
+//                String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/" + carPostResponses.getId() + "/uploadImage";
+//
+//                File file = new File(destination.getAbsolutePath());
+//
+//                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+//                RequestBody requestFile =
+//                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                MultipartBody.Part body =
+//                        MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+//                //MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+////                MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",
+////                        destination.getAbsolutePath(), requestFile);
+//
+//               // System.out.println("FULLURLS::::>>" + fullUrl + "USR::::>>>" + userModel.getToken() + "filepart" + filePart);
+//                Observable<FcmReqRes> sendImage = vehicleBazzarService.sendImage(
+//                        fullUrl,
+//                        body,
+//                        userModel.getToken(), "multipart/form-data");
+//                subscribe(sendImage, new Observer<FcmReqRes>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        System.out.println("Completed");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        getView().onHideDialog();
+//                        System.out.println("ADDING ERROR" + e.getMessage());
+//                        getView().onAddPostSuccess();
+//                    }
+//
+//                    @Override
+//                    public void onNext(FcmReqRes carPostResponses) {
+//                        System.out.println("On next");
+//                        System.out.println("Post success" + carPostResponses.getResult());
+//                    }
+//                });
+//                // new uploadFileToServerTask().execute();
 
             }
         });
