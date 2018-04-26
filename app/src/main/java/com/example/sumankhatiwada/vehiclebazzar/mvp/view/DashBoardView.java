@@ -18,4 +18,5 @@ public interface DashBoardView extends BaseView {
     void onNotifiedSuccess(MessageDTO messageDTO);
 
     void onCommentSuccess();
+    void onAddPostSuccess();
 }

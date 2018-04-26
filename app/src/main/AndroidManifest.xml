@@ -33,6 +33,7 @@
         <activity android:name=".ui.activities.DashBoardActivity" />
         <activity android:name=".ui.activities.CarDetailActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.activities.AddPostActivity" />
 
         <service android:name=".utils.FcmInstanceIdService">
             <intent-filter>

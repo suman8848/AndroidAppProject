@@ -185,155 +185,10 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     }
 
     private void openDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.post_update_new);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));
-        dialog.show();
-        img_camera = (ImageView) dialog.findViewById(R.id.post_image_camera);
-        img_gallery = (ImageView) dialog.findViewById(R.id.post_image_browse);
-        img = (ImageView) dialog.findViewById(R.id.imageview_from_gallery);
-        Button buttonAddPost = dialog.findViewById(R.id.addnewCarBttn);
-        final EditText etCarName = dialog.findViewById(R.id.et_name);
-        final EditText etCarMakeYear = dialog.findViewById(R.id.etMakeYear);
-        final EditText etModel = dialog.findViewById(R.id.et_car_model);
-        final EditText etColor = dialog.findViewById(R.id.et_car_color);
-        final EditText etCarMileage = dialog.findViewById(R.id.et_car_mileage);
-        final EditText etPrice = dialog.findViewById(R.id.et_car_price);
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            img_camera.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-        }
-
-        img_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
-        });
-
-
-        img_gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                // Activity Action for the intent : Pick an item from the data, returning what was selected.
-                i.setAction(Intent.ACTION_PICK);
-                i.setType("image/*");
-                // Start the Gallery Intent activity with the request_code 2
-                startActivityForResult(i,2);
-            }
-        });
-
-        buttonAddPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.chevi);
-
-                String carName =etCarName.getText().toString();
-                String carMakeYear =etCarMakeYear.getText().toString();
-                String carModel =etModel.getText().toString();
-                String carColor =etColor.getText().toString();
-                String carMileage =etCarMileage.getText().toString();
-                String carPrice =etPrice.getText().toString();
-
-                if(bitmap==null){
-                    System.out.println(":::NULL BITMAP");
-                }else {
-
-                    System.out.println(":::NOT NULl BITMAP");
-                }
-
-                dashBoardPresenter.sendPost(carName,carMakeYear,carModel,carColor,carMileage,carPrice,bitmap);
-
-            }
-        });
-
-
-        etCarName.addTextChangedListener(new TextWatcher() {
-            String carname = "";
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                carname = etCarName.getText().toString();
-                if (carname.isEmpty()) {
-                    etCarName.setError("This field shouldn't be empty", null);
-
-                } else if (!isValidEmail(carname)) {
-
-                    etCarName.setError("Please enter valid name", null);
-
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-
-            }
-        });
-
-        /*etCarMakeYear.addTextChangedListener(new TextWatcher() {
-            String carmake = "";
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                carname = etCarName.getText().toString();
-                if (carname.isEmpty()) {
-                    etCarName.setError("This field shouldn't be empty", null);
-
-                } else if (!isValidEmail(carname)) {
-
-                    etCarName.setError("Please enter valid name", null);
-
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-
-            }
-        });*/
-
-
-
+        startActivity(new Intent(DashBoardActivity.this,AddPostActivity.class));
     }
 
-    // To perform post Activities write your logic in the onActivityResult(), the user actions are determined based on the requestCode
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Intent object data automatically store the selected file path from the Image Gallery from your device storage
-        super.onActivityResult(requestCode, resultCode, data);
 
-        // Logic to get from Bundle
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null) {
-            Bundle extras = data.getExtras();
-            bitmap = (Bitmap) extras.get("data");
-            img.setImageBitmap(bitmap);
-        }
-        else if(requestCode==2 && resultCode == RESULT_OK){ // For Clicking Gallery button
-            // Set the selected image from the device image gallery to the ImageView component
-            img.setImageURI(data.getData());
-        }
-    }
 
     public void setToolbar() {
         setSupportActionBar(mToolbar);
@@ -440,6 +295,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     @Override
     public void onCommentSuccess() {
 
+    }
+
+    @Override
+    public void onAddPostSuccess() {
+        //Donothing
     }
 
     @Override
