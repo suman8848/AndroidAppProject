@@ -213,16 +213,18 @@ public class SharedPreferenceManager {
         Log.e("UserModelRegister", userModel.isAuth() + AppConstants.SharedPreferenceKeys.AUTH.getKey());
         setBooleanInPreferences(AppConstants.SharedPreferenceKeys.AUTH.getKey(), userModel.isAuth());
         setStringInPreferences(AppConstants.SharedPreferenceKeys.TOKEN.getKey(), userModel.getToken());
+        setStringInPreferences(AppConstants.SharedPreferenceKeys.NAME.getKey(),userModel.getName());
     }
     public UserModel getUserModelFromPreferences() {
         UserModel userModel = null;
         boolean auth = getBooleanFromPreferences(AppConstants.SharedPreferenceKeys.AUTH.getKey());
         String token = getStringFromPreferences(AppConstants.SharedPreferenceKeys.TOKEN.getKey());
-
+        String name = getStringFromPreferences(AppConstants.SharedPreferenceKeys.NAME.getKey());
         if (!auth || !TextUtils.isEmpty(token)) {
             userModel = new UserModel();
             userModel.setAuth(auth);
             userModel.setToken(token);
+            userModel.setName(name);
         }
         return userModel;
     }

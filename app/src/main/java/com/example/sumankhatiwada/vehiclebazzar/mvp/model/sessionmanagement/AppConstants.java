@@ -7,7 +7,9 @@ public class AppConstants {
 
     public enum SharedPreferenceKeys {
         AUTH("auth"),
+        NAME("name"),
         TOKEN("token");
+
 
 
 

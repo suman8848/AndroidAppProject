@@ -36,7 +36,11 @@ public class ProfileFragmentPresenter extends BasePresenter<ProfileView> {
     SharedPreferenceManager mSharedPreferenceManager;
     @Inject
     public ProfileFragmentPresenter() {
+
     }
 
 
+    public void updatePhoneNo() {
+
+    }
 }

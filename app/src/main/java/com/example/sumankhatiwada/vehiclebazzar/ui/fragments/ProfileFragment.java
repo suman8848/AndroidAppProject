@@ -72,10 +72,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     protected void onViewReadyFragment(View view, Intent intent) {
         super.onViewReadyFragment(view, intent);
         Bundle bundle =getArguments();
+
        RegisterRequestAndProfileResponses responses= (RegisterRequestAndProfileResponses)bundle.getSerializable(PROFILE_KEY);
 //        etProfileAddress.setText(responses.getAddress().getCity());
         etProfileEmail.setText(responses.getEmail());
         etProfilePhone.setText(responses.getPhone());
+
 
     }
 
@@ -109,6 +111,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         etProfilePhone.setEnabled(true);
         btnPhoneSave.setVisibility(View.VISIBLE);
         btnPhoneEdit.setVisibility(View.GONE);
+        profileFragmentPresenter.updatePhoneNo();
 
     }
 
@@ -153,4 +156,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void onShowToast(String message) {
 
     }
+
+
 }

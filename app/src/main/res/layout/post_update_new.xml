@@ -37,7 +37,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/addnewEmailBttn"
+            android:id="@+id/addnewCarBttn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -192,6 +192,7 @@
                         android:text="Make(Year):" />
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etMakeYear"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_8"
@@ -219,6 +220,7 @@
                         android:text="Model: " />
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_car_model"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_8"
@@ -247,6 +249,7 @@
                         android:text="Color: " />
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_car_color"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_8"
@@ -274,6 +277,7 @@
                         android:text="Mileage: " />
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_car_mileage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_8"
@@ -301,6 +305,7 @@
                         android:text="Price: " />
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_car_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_8"
