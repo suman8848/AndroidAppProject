@@ -46,10 +46,11 @@ public class FcmMessagingService  extends FirebaseMessagingService {
         notificationDBHelper = new NotificationDBHelper(this);
 
         if("".equals(title) && "".equals(message)){
-            AddData(title, message);
+            System.out.println("data is not available ----------------->>>" + title + message);
+
         }
         else{
-            System.out.println("data is not available ----------------->>>" + title + message);
+            AddData(title, message);
         }
 
 

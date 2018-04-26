@@ -7,11 +7,11 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".application.VehicleBazzarApplication"
         android:allowBackup="true"
@@ -20,10 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.SplashActivity" >
+        <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DashBoardActivity" />
-        <activity android:name=".ui.activities.CarDetailActivity"
+        <activity
+            android:name=".ui.activities.CarDetailActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activities.AddPostActivity" />
 
@@ -45,6 +46,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".ui.activities.NotificationTestActivity"></activity>
     </application>
 
 </manifest>
