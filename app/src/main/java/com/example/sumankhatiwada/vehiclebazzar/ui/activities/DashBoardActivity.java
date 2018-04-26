@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,6 +77,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
     ImageView img,img_camera, img_gallery;
+    Bitmap bitmap;
 
     @BindView(R.id.main_toolbar)
     Toolbar mToolbar;
@@ -229,6 +233,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
             @Override
             public void onClick(View view) {
 
+//                Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.chevi);
+
                 String carName =etCarName.getText().toString();
                 String carMakeYear =etCarMakeYear.getText().toString();
                 String carModel =etModel.getText().toString();
@@ -236,10 +242,76 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
                 String carMileage =etCarMileage.getText().toString();
                 String carPrice =etPrice.getText().toString();
 
-                dashBoardPresenter.sendPost(carName,carMakeYear,carModel,carColor,carMileage,carPrice);
+                if(bitmap==null){
+                    System.out.println(":::NULL BITMAP");
+                }else {
+
+                    System.out.println(":::NOT NULl BITMAP");
+                }
+                
+                dashBoardPresenter.sendPost(carName,carMakeYear,carModel,carColor,carMileage,carPrice,bitmap);
 
             }
         });
+
+
+        etCarName.addTextChangedListener(new TextWatcher() {
+            String carname = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                carname = etCarName.getText().toString();
+                if (carname.isEmpty()) {
+                    etCarName.setError("This field shouldn't be empty", null);
+
+                } else if (!isValidEmail(carname)) {
+
+                    etCarName.setError("Please enter valid name", null);
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
+
+        /*etCarMakeYear.addTextChangedListener(new TextWatcher() {
+            String carmake = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                carname = etCarName.getText().toString();
+                if (carname.isEmpty()) {
+                    etCarName.setError("This field shouldn't be empty", null);
+
+                } else if (!isValidEmail(carname)) {
+
+                    etCarName.setError("Please enter valid name", null);
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });*/
 
 
 
@@ -254,8 +326,8 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
         // Logic to get from Bundle
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            img.setImageBitmap(imageBitmap);
+            bitmap = (Bitmap) extras.get("data");
+            img.setImageBitmap(bitmap);
         }
         else if(requestCode==2 && resultCode == RESULT_OK){ // For Clicking Gallery button
             // Set the selected image from the device image gallery to the ImageView component

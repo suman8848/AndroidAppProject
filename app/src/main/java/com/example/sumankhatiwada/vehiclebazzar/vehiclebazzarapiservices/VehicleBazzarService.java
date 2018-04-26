@@ -11,13 +11,17 @@ import com.example.sumankhatiwada.vehiclebazzar.mvp.model.dbmodels.TokenDTO;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -48,6 +52,14 @@ public interface VehicleBazzarService {
     @POST
     Observable<CarPostResponses> comment(@Url String fullUrl, @Body CommentReq comment, @Header("x-access-token") String token, @Header("Content-Type") String contentType);
 
+    @Multipart
+    @Headers({"Content-Type: multipart/form-data"})
+    @POST
+    Observable<CarPostResponses> sendImage(@Url String fullUrl,
+                                           @Part MultipartBody.Part filePart,
+                                           @Header("x-access-token") String token);
+
+
     @POST("/api/auth/boat")
-    Observable<CarPostRequest> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
+    Observable<CarPostResponses> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
 }
