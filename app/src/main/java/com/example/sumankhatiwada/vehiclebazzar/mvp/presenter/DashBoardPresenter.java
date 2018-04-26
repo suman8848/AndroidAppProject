@@ -131,6 +131,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
 
 
     public void comment(String id, String commentBody) {
+        userModel=getUserModelSession();
         getView().onShowDialog("Posting Comment");
         System.out.println("ID------->" + id);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

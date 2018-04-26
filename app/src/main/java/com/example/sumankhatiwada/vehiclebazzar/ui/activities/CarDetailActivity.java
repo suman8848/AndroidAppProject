@@ -96,6 +96,7 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
         carPostResponses = intent.getParcelableExtra(GET_KEY_FOR_EACH_CAR);
         carPostResponsesListComments = intent.getParcelableArrayListExtra("comments");
         userModel= intent.getParcelableExtra("usermodels");
+        System.out.println("USERMODEL:::"+userModel.getToken()+"CARRES"+ carPostResponses.getBoatImage().size());
         Picasso.with(this).load(carPostResponses.getBoatImage().get(0))
                 .error(R.drawable.ic_launcher_background)
                 .placeholder(R.drawable.ic_launcher_background)
@@ -113,7 +114,7 @@ public class CarDetailActivity extends BaseActivity implements DashBoardView {
         String token = FirebaseInstanceId.getInstance().getToken();
         System.out.println("token -->>> " + token);
 //              String token1=  new Gson().toJson(token);
-            dashBoardPresenter.sendNotification(etComment,token);
+            //dashBoardPresenter.sendNotification(etComment,token);
             dashBoardPresenter. comment(carPostResponses.getId(),etComment);
     }
 

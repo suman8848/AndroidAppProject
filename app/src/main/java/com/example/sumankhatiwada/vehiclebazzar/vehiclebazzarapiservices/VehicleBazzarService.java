@@ -43,7 +43,7 @@ public interface VehicleBazzarService {
     @GET("/api/auth/me")
     Observable<RegisterRequestAndProfileResponses> getMyProfile(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
-    @GET("/api/auth/boat?limit=9")
+    @GET("/api/auth/boat?limit=9&categories=Cars")
     Observable<List<CarPostResponses>> getAllPost(@Header("x-access-token")String token, @Header("Content-Type") String contentType);
 
 
