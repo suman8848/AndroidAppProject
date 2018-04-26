@@ -67,5 +67,5 @@ public interface VehicleBazzarService {
 
     @PUT("/api/auth/fcmtoken")
     Observable<FcmReqRes> sendFcm(@Header("x-access-token") String token, @Header("Content-Type") String contentType, @Body FcmReqRes fcmReqRes);
-    Observable<CarPostResponses> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
+//    Observable<CarPostResponses> addPost(@Header("x-access-token") String token, @Header("Content-Type") String s, @Body CarPostRequest carPostResponses);
 }

@@ -248,7 +248,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
 
                     System.out.println(":::NOT NULl BITMAP");
                 }
-                
+
                 dashBoardPresenter.sendPost(carName,carMakeYear,carModel,carColor,carMileage,carPrice,bitmap);
 
             }
