@@ -142,7 +142,7 @@ public class DashBoardPresenter extends BasePresenter<DashBoardView> {
         CommentReq commentReq = new CommentReq();
         commentReq.setComments(co);
         String fullUrl = "https://ancient-hamlet-60512.herokuapp.com/api/auth/boat/" + id + "/comment";
-        System.out.println("URL---->" + fullUrl + ":::::" + comment + "9999>" + userModel.getToken());
+        System.out.println("URL---->" + fullUrl + ":::::" + commentReq + "9999>" + userModel.getToken());
         Observable<CarPostResponses> setComment = vehicleBazzarService.comment(fullUrl, commentReq, userModel.getToken(), "application/json");
         subscribe(setComment, new Observer<CarPostResponses>() {
             @Override

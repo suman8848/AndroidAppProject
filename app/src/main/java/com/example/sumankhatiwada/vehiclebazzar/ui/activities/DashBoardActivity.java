@@ -130,11 +130,11 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
        int check= getIntent().getIntExtra("checker",0);
         sharedPreferences =getSharedPreferences(String.valueOf(R.string.FCM_PREF),0);
 
-       if(check==1){
-           bottomNavigationView.setSelectedItemId(R.id.action_Notification);
-           setDesiredFragment(NotificationFragment.newInstance());
-
-       }else {
+//       if(check==1){
+//           bottomNavigationView.setSelectedItemId(R.id.action_Notification);
+//           setDesiredFragment(NotificationFragment.newInstance());
+//
+//       }else {
            setDesiredFragment(HomeFragment.newInstance());
            mAppBarLayout.addOnOffsetChangedListener(this);
            startAlphaAnimation(mTitle, 0, View.INVISIBLE);
@@ -172,7 +172,7 @@ public class DashBoardActivity extends BaseActivity implements DashBoardView, Ap
                    return true;
                }
            });
-       }
+//       }
 
 
 //        textViewWelcomeEmail.setText(userModel.get);
